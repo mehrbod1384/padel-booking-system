@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const DATABASE = process.env.DATABASE;
+const DATABASE = process.env.DATABASE!;
 
 if (!DATABASE) throw new Error("Please define DATABASE");
 
