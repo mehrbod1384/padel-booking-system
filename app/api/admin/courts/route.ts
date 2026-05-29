@@ -1,11 +1,11 @@
+import { createCourt, getAllCourt } from "@/features/court/courtServices";
 import { connectDB } from "@/lib/db";
-import { Court } from "@/models/Court";
 
 export async function GET() {
   try {
     await connectDB();
 
-    const courts = await Court.find();
+    const courts = await getAllCourt();
 
     return Response.json({
       success: true,
@@ -35,10 +35,8 @@ export async function POST(req: Request) {
         { status: 400 },
       );
     }
-    const court = await Court.create({
-      name,
-      price,
-    });
+
+    const court = await createCourt(name, price);
 
     return Response.json({
       success: true,

@@ -1,5 +1,5 @@
+import { deleteCourt, updateCourt } from "@/features/court/courtServices";
 import { connectDB } from "@/lib/db";
-import { Court } from "@/models/Court";
 
 export async function PATCH(
   req: Request,
@@ -10,7 +10,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const court = await Court.findByIdAndUpdate(params.id, body, { new: true });
+    const court = await updateCourt(params.id, body);
 
     return Response.json({
       success: true,
@@ -34,12 +34,12 @@ export async function DELETE(
   try {
     await connectDB();
 
-    await Court.findByIdAndDelete(params.id);
+    await deleteCourt(params.id);
 
     return Response.json({
       success: true,
     });
-  } catch (error) {
-    return Response.json({ success: false }, { status: 500 });
+  } catch (err) {
+    return Response.json({ success: false, err }, { status: 500 });
   }
 }
