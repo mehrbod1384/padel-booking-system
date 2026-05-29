@@ -15,6 +15,7 @@ export async function GET() {
     return Response.json(
       {
         success: false,
+        err,
       },
       { status: 500 },
     );
@@ -45,7 +46,11 @@ export async function POST(req: Request) {
     });
   } catch (err) {
     return Response.json(
-      { success: false, message: "Server error" },
+      {
+        success: false,
+        message: "Server error",
+        err,
+      },
       { status: 500 },
     );
   }

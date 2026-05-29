@@ -39,12 +39,11 @@ export async function POST(req: Request) {
       message: "OTP sent successfuly",
     });
   } catch (err) {
-    console.log(err);
-
     return Response.json(
       {
         success: false,
         message: "Server error",
+        err,
       },
       {
         status: 500,

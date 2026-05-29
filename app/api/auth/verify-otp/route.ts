@@ -77,12 +77,11 @@ export async function POST(req: Request) {
       user,
     });
   } catch (err) {
-    console.log(err);
-
     return Response.json(
       {
         success: false,
         message: "Server error",
+        err,
       },
       {
         status: 500,

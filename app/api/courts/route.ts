@@ -15,6 +15,7 @@ export async function GET() {
     return Response.json(
       {
         success: false,
+        err,
       },
       { status: 500 },
     );

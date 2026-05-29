@@ -1,3 +1,4 @@
+import { User } from "@/models/User";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
@@ -10,7 +11,9 @@ export async function getUserFromToken() {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
 
-    return decoded;
+    const user = await User.findById(decoded.userId);
+
+    return user;
   } catch (err) {
     return null;
   }

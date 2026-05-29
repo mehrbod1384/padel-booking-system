@@ -17,7 +17,13 @@ export async function PATCH(
       court,
     });
   } catch (err) {
-    return Response.json({ success: false }, { status: 500 });
+    return Response.json(
+      {
+        success: false,
+        err,
+      },
+      { status: 500 },
+    );
   }
 }
 

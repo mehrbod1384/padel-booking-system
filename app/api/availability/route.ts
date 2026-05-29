@@ -22,10 +22,12 @@ export async function GET(req: Request) {
         },
       );
     }
+    const reservationDate = new Date(date);
+    reservationDate.setHours(0, 0, 0, 0);
 
     const reservations = await Reservation.find({
       court: courtId,
-      date,
+      date: reservationDate,
       status: {
         $in: ["PENDING", "CONFIRMED"],
       },
