@@ -1,14 +1,15 @@
 import { connectDB } from "@/lib/db";
-import { Reservation } from "@/models/Reservation";
 import { getUserFromToken } from "@/lib/auth";
+import {
+  checkReservationExist,
+  createReservation,
+} from "@/features/booking/services/reservationService";
 
 export async function POST(req: Request) {
   try {
     await connectDB();
 
     const user = await getUserFromToken();
-
-    console.log(user);
 
     if (!user) {
       return Response.json(
@@ -38,28 +39,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const startOfDay = new Date(date);
-    startOfDay.setHours(0, 0, 0, 0);
+    const existing = await checkReservationExist(courtId, slot, date);
 
-    const endOfDay = new Date(date);
-    endOfDay.setHours(23, 50, 50, 999);
-
-    const existingReservation = await Reservation.findOne({
-      court: courtId,
-
-      slot,
-
-      date: {
-        $gte: startOfDay,
-        $lte: endOfDay,
-      },
-
-      status: {
-        $in: ["PENDING", "CONFIRMED"],
-      },
-    });
-
-    if (existingReservation) {
+    if (existing) {
       return Response.json(
         {
           success: false,
@@ -71,17 +53,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const reservation = await Reservation.create({
-      user: user.id,
-
-      court: courtId,
-
-      date: startOfDay,
-
-      slot,
-
-      status: "PENDING",
-    });
+    const reservation = await createReservation(user.id, courtId, slot, date);
 
     return Response.json({
       success: true,

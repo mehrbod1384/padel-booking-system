@@ -1,6 +1,5 @@
 import { connectDB } from "@/lib/db";
-import { Reservation } from "@/models/Reservation";
-import { slots } from "@/features/booking/utils/slots";
+import { getAvailableSlots } from "@/features/booking/services/availabiltyService";
 
 export async function GET(req: Request) {
   try {
@@ -22,22 +21,8 @@ export async function GET(req: Request) {
         },
       );
     }
-    const reservationDate = new Date(date);
-    reservationDate.setHours(0, 0, 0, 0);
 
-    const reservations = await Reservation.find({
-      court: courtId,
-      date: reservationDate,
-      status: {
-        $in: ["PENDING", "CONFIRMED"],
-      },
-    });
-
-    const reservedSlots = reservations.map((reservation) => reservation.slot);
-
-    const availableSlots = slots.filter(
-      (slot) => !reservedSlots.includes(slot),
-    );
+    const availableSlots = await getAvailableSlots(courtId, date);
 
     return Response.json({
       success: true,
