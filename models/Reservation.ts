@@ -14,6 +14,11 @@ const reservationSchema = new Schema(
       required: true,
     },
 
+    amount: {
+      type: Number,
+      required: true,
+    },
+
     date: {
       type: Date,
       required: true,
@@ -26,8 +31,13 @@ const reservationSchema = new Schema(
 
     status: {
       type: String,
-      enum: ["PENDING", "CONFIRMED", "CANCELLED", "EXPIRES"],
+      enum: ["PENDING", "CONFIRMED", "CANCELLED", "EXPIRED"],
       default: "PENDING",
+    },
+
+    expiresAt: {
+      type: Date,
+      default: () => Date.now() + 5 * 60 * 1000,
     },
   },
   {

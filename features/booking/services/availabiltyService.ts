@@ -13,9 +13,17 @@ export async function getAvailableSlots(courtId: string, date: string) {
       $lte: endOfDay,
     },
 
-    status: {
-      $in: ["PENDING", "CONFIRMED"],
-    },
+    $or: [
+      {
+        status: "CONFIRMED",
+      },
+      {
+        status: "PENDING",
+        expiresAt: {
+          $gte: new Date(),
+        },
+      },
+    ],
   });
 
   const reservedSlots = reservations.map((reservation) => reservation.slot);

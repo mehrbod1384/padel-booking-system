@@ -18,9 +18,17 @@ export async function checkReservationExist(
       $lte: endOfDay,
     },
 
-    status: {
-      $in: ["PENDING", "CONFIRMED"],
-    },
+    $or: [
+      {
+        status: "CONFIRMED",
+      },
+      {
+        status: "PENDING",
+        expiresAt: {
+          $gte: new Date(),
+        },
+      },
+    ],
   });
 
   return existingReservation ? true : false;
@@ -37,7 +45,7 @@ export async function createReservation(
 
     court: courtId,
 
-    date: new Date(date),
+    date,
 
     slot,
 

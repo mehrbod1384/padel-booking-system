@@ -1,3 +1,4 @@
+import { sendOtp } from "@/features/auth/authService";
 import { generateOtp } from "@/features/auth/utils/generateOtp";
 import { connectDB } from "@/lib/db";
 import { OtpCode } from "@/models/OtpCode";
@@ -22,17 +23,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const otp = generateOtp();
-
-    const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
-
-    await OtpCode.create({
-      phone,
-      code: otp,
-      expiresAt,
-    });
-
-    console.log("OTP:", otp);
+    await sendOtp(phone);
 
     return Response.json({
       success: true,

@@ -1,8 +1,6 @@
-import { generateToken } from "@/features/auth/utils/generateToken";
+import { verifyOtp } from "@/features/auth/authService";
 import { connectDB } from "@/lib/db";
 import { OtpCode } from "@/models/OtpCode";
-import { User } from "@/models/User";
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
@@ -53,23 +51,7 @@ export async function POST(req: Request) {
       );
     }
 
-    let user = await User.findOne({ phone });
-
-    if (!user) user = await User.create({ phone });
-
-    const token = generateToken(user._id.toString());
-
-    await OtpCode.deleteMany({ phone });
-
-    const cookieStore = await cookies();
-
-    cookieStore.set("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    const user = await verifyOtp(phone);
 
     return Response.json({
       success: true,

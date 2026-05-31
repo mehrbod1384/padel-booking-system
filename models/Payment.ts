@@ -15,15 +15,17 @@ const paymentSchema = new Schema(
 
     authority: {
       type: String,
+      required: true,
     },
 
     refId: {
       type: String,
+      required: true,
     },
 
     status: {
       type: String,
-      enum: ["PENDING", "SUCCESS", "FAILED"],
+      enum: ["INITIATED", "SUCCESS", "FAILED", "EXPIRED"],
       default: "PENDING",
     },
   },

@@ -19,7 +19,6 @@ export default function BookPage() {
     async function getCourts() {
       const res = await axios.get("/api/courts");
       setCourts(res.data.courts);
-      console.log(courts);
     }
 
     getCourts();
