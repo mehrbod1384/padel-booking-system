@@ -1,7 +1,5 @@
 import { sendOtp } from "@/features/auth/authService";
-import { generateOtp } from "@/features/auth/utils/generateOtp";
 import { connectDB } from "@/lib/db";
-import { OtpCode } from "@/models/OtpCode";
 
 export async function POST(req: Request) {
   try {
