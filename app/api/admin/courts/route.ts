@@ -1,4 +1,7 @@
-import { createCourt, getAllCourt } from "@/features/court/courtServices";
+import {
+  createCourt,
+  getAllCourt,
+} from "@/features/court/services/courtServices";
 import { connectDB } from "@/lib/db";
 
 export async function GET() {

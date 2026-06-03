@@ -1,4 +1,7 @@
-import { deleteCourt, updateCourt } from "@/features/court/courtServices";
+import {
+  deleteCourt,
+  updateCourt,
+} from "@/features/court/services/courtServices";
 import { connectDB } from "@/lib/db";
 
 export async function PATCH(

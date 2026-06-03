@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/db";
 import { getAvailableSlots } from "@/features/booking/services/availabiltyService";
+import { handleApiError } from "@/lib/errors/handleApiError";
 
 export async function GET(req: Request) {
   try {
@@ -10,18 +11,6 @@ export async function GET(req: Request) {
     const courtId = searchParams.get("courtId");
     const date = searchParams.get("date");
 
-    if (!courtId || !date) {
-      return Response.json(
-        {
-          success: false,
-          message: "courtId and date required",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
     const availableSlots = await getAvailableSlots(courtId, date);
 
     return Response.json({
@@ -29,15 +18,6 @@ export async function GET(req: Request) {
       availableSlots,
     });
   } catch (err) {
-    return Response.json(
-      {
-        success: false,
-        message: "Server error",
-        err,
-      },
-      {
-        status: 500,
-      },
-    );
+    return handleApiError(err);
   }
 }

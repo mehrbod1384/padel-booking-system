@@ -1,5 +1,8 @@
+import { Court } from "@/models/Court";
 import { Reservation } from "@/models/Reservation";
 import { getDayRange } from "@/utils/date";
+import { handleReservationDates } from "../utils/handleReservationDates";
+import { AppError } from "@/lib/errors/AppError";
 
 export async function checkReservationExist(
   courtId: string,
@@ -40,6 +43,25 @@ export async function createReservation(
   slot: string,
   date: string,
 ) {
+  if (!courtId || !date || !slot) throw new AppError("Missing fields", 400);
+
+  const { today, requestedDate, slotDateTime, maxDate, now } =
+    handleReservationDates(date, slot);
+
+  if (requestedDate < today)
+    throw new AppError("Past date is not allowed", 400);
+
+  if (requestedDate > maxDate)
+    throw new AppError("you can only reserve 14 days ahead", 400);
+
+  if (slotDateTime < now) throw new AppError("Slot has already started", 400);
+
+  const existing = await checkReservationExist(courtId, slot, date);
+
+  if (existing) throw new AppError("Slot already reserved", 400);
+
+  const { price: amount } = await Court.findById(courtId).select("price");
+
   const reservation = await Reservation.create({
     user: userId,
 
@@ -48,6 +70,8 @@ export async function createReservation(
     date,
 
     slot,
+
+    amount,
 
     status: "PENDING",
   });

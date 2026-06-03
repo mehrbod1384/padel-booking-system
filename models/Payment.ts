@@ -20,7 +20,7 @@ const paymentSchema = new Schema(
 
     refId: {
       type: String,
-      required: true,
+      default: null,
     },
 
     status: {

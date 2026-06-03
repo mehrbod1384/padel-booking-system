@@ -1,6 +1,7 @@
 import { User } from "@/models/User";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { AppError } from "./errors/AppError";
 
 export async function getUserFromToken() {
   const cookieStore = await cookies();
@@ -8,13 +9,11 @@ export async function getUserFromToken() {
 
   if (!token) return null;
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!);
 
-    const user = await User.findById(decoded.userId);
+  const user = await User.findById(decoded.userId);
 
-    return user;
-  } catch (err) {
-    return null;
-  }
+  if (!user) throw new AppError("Unauthorized", 401);
+
+  return user;
 }

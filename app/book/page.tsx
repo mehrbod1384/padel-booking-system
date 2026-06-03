@@ -18,6 +18,7 @@ export default function BookPage() {
   useEffect(() => {
     async function getCourts() {
       const res = await axios.get("/api/courts");
+
       setCourts(res.data.courts);
     }
 
