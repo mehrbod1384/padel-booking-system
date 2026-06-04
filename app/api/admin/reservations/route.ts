@@ -17,7 +17,9 @@ export async function GET() {
 
     const reservations = await Reservation.find()
       .populate("user", "phone")
-      .populate("court", "name price isActive");
+      .populate("court", "name price isActive")
+      .select("-expiresAt -updatedAt")
+      .sort({ createdAt: -1 });
 
     if (!reservations) throw new AppError("Reservations not found", 404);
 

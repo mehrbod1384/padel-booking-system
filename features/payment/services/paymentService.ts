@@ -19,7 +19,11 @@ export async function checkExistingPayment(reservationId: string) {
   return existingPayment;
 }
 
-export async function createPayment(reservation: any) {
+export async function createPayment(reservationId: string) {
+  const reservation = await Reservation.findById(reservationId);
+
+  if (!reservation) throw new AppError("Reservation not found", 404);
+
   const paymentGeteway = await createPaymentRequest({
     amount: reservation.amount,
     description: `Reservation ${reservation._id}`,

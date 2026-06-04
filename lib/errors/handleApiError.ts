@@ -14,7 +14,7 @@ export function handleApiError(error: unknown) {
     );
   }
 
-  console.error(error);
+  console.error(error.message);
 
   return NextResponse.json(
     {
