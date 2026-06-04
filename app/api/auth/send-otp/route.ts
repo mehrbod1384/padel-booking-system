@@ -1,5 +1,6 @@
-import { sendOtp } from "@/features/auth/authService";
+import { sendOtp } from "@/features/auth/services/authService";
 import { connectDB } from "@/lib/db";
+import { handleApiError } from "@/lib/errors/handleApiError";
 
 export async function POST(req: Request) {
   try {
@@ -9,18 +10,6 @@ export async function POST(req: Request) {
 
     const { phone } = body;
 
-    if (!phone) {
-      return Response.json(
-        {
-          success: false,
-          message: "Phone is required",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
     await sendOtp(phone);
 
     return Response.json({
@@ -28,15 +17,6 @@ export async function POST(req: Request) {
       message: "OTP sent successfuly",
     });
   } catch (err) {
-    return Response.json(
-      {
-        success: false,
-        message: "Server error",
-        err,
-      },
-      {
-        status: 500,
-      },
-    );
+    return handleApiError(err);
   }
 }

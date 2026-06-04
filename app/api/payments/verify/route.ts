@@ -1,5 +1,6 @@
 import { verifyPayment } from "@/features/payment/services/zarinpalService";
 import { connectDB } from "@/lib/db";
+import { handleApiError } from "@/lib/errors/handleApiError";
 import { Payment } from "@/models/Payment";
 import { Reservation } from "@/models/Reservation";
 import { NextResponse } from "next/server";
@@ -77,8 +78,6 @@ export async function GET(req: Request) {
   } catch (err) {
     console.log(err.response?.data || err.message);
 
-    return NextResponse.json({
-      err,
-    });
+    return handleApiError(err);
   }
 }

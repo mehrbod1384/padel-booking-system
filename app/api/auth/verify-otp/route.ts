@@ -1,6 +1,6 @@
-import { verifyOtp } from "@/features/auth/authService";
+import { verifyOtp } from "@/features/auth/services/authService";
 import { connectDB } from "@/lib/db";
-import { OtpCode } from "@/models/OtpCode";
+import { handleApiError } from "@/lib/errors/handleApiError";
 
 export async function POST(req: Request) {
   try {
@@ -10,48 +10,7 @@ export async function POST(req: Request) {
 
     const { phone, code } = body;
 
-    if (!phone || !code) {
-      return Response.json(
-        {
-          success: false,
-          message: "Phone and code are required",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    const otpDoc = await OtpCode.findOne({
-      phone,
-      code,
-    });
-
-    if (!otpDoc) {
-      return Response.json(
-        {
-          success: false,
-          message: "Invalid OTP",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    if (otpDoc.expiresAt < new Date()) {
-      return Response.json(
-        {
-          success: false,
-          message: "OTP expired",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    const user = await verifyOtp(phone);
+    const user = await verifyOtp(phone, code);
 
     return Response.json({
       success: true,
@@ -59,15 +18,6 @@ export async function POST(req: Request) {
       user,
     });
   } catch (err) {
-    return Response.json(
-      {
-        success: false,
-        message: "Server error",
-        err,
-      },
-      {
-        status: 500,
-      },
-    );
+    return handleApiError(err);
   }
 }

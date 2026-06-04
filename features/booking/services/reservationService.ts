@@ -3,6 +3,7 @@ import { Reservation } from "@/models/Reservation";
 import { getDayRange } from "@/utils/date";
 import { handleReservationDates } from "../utils/handleReservationDates";
 import { AppError } from "@/lib/errors/AppError";
+import { getUserFromToken } from "@/lib/auth";
 
 export async function checkReservationExist(
   courtId: string,
@@ -38,11 +39,12 @@ export async function checkReservationExist(
 }
 
 export async function createReservation(
-  userId: string,
   courtId: string,
   slot: string,
   date: string,
 ) {
+  const user = await getUserFromToken();
+
   if (!courtId || !date || !slot) throw new AppError("Missing fields", 400);
 
   const { today, requestedDate, slotDateTime, maxDate, now } =
@@ -63,7 +65,7 @@ export async function createReservation(
   const { price: amount } = await Court.findById(courtId).select("price");
 
   const reservation = await Reservation.create({
-    user: userId,
+    user: user._id,
 
     court: courtId,
 
