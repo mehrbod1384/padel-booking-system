@@ -12,7 +12,7 @@ export async function GET() {
 
     return Response.json({
       success: true,
-      courts,
+      data: courts,
     });
   } catch (err) {
     return Response.json(

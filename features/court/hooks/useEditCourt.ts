@@ -1,0 +1,19 @@
+import { queryKeys } from "@/lib/queryKeys";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateCourtApi } from "../api/courtApi";
+
+export function useCreateCourt() {
+  const queryClient = useQueryClient();
+
+  const { mutate: editCourtMutation, isPending: isEditing } = useMutation({
+    mutationFn: updateCourtApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKeys.courts);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  return { editCourtMutation, isEditing };
+}
