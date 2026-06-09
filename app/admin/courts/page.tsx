@@ -1,25 +1,22 @@
 "use client";
 
-import CreateCourtForm from "@/features/court/components/CreateCourtForm";
-import { useCourt } from "@/features/court/hooks/useCourt";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import CourtsTable from "../../../features/dashboard/courts/CourtsTable";
 
 export default function CourtsPage() {
-  const { courts, isLoading, error } = useCourt();
-
-  if (isLoading) return <p>Loading...</p>;
-
   return (
-    <div>
-      <CreateCourtForm />
+    <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Courts Management</h1>
 
-      <div>
-        {courts.map((court: any) => (
-          <div key={court._id}>
-            <p>{court.name}</p>
-            <p>{court.price}</p>
-          </div>
-        ))}
+        <Button>
+          <Link href="/admin/courts/create">Add Court</Link>
+        </Button>
       </div>
+
+      <CourtsTable />
     </div>
   );
 }
