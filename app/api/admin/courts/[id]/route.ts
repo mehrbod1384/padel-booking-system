@@ -12,8 +12,9 @@ export async function PATCH(
     await connectDB();
 
     const body = await req.json();
+    const { id } = await params;
 
-    const court = await updateCourt(params.id, body);
+    const court = await updateCourt(id, body);
 
     return Response.json({
       success: true,
@@ -37,7 +38,9 @@ export async function DELETE(
   try {
     await connectDB();
 
-    await deleteCourt(params.id);
+    const { id } = await params;
+
+    await deleteCourt(id);
 
     return Response.json({
       success: true,

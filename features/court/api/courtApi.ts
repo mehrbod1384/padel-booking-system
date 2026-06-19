@@ -6,14 +6,26 @@ export async function getAllCourtsApi() {
   return res.data.courts;
 }
 
-export async function createCourtApi(payload: { name: string; price: number }) {
+export async function createCourtApi(payload: {
+  name: string;
+  price: number;
+  isActive: boolean;
+}) {
   const res = await axiosInstance.post("/admin/courts", payload);
 
   return res.data.court;
 }
 
-export async function updateCourtApi(courtId: string) {
-  const res = await axiosInstance.patch(`/admin/courts/${courtId}`);
+export async function updateCourtApi(payload: {
+  courtId: string;
+  name: string;
+  price: number;
+  isActive: boolean;
+}) {
+  const res = await axiosInstance.patch(
+    `/admin/courts/${payload.courtId}`,
+    payload,
+  );
 
   return res.data.court;
 }

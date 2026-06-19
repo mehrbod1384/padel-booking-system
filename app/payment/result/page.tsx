@@ -1,12 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ResultPage() {
   const paymentId = useSearchParams().get("paymentId");
   const [refId, setRefId] = useState<string>("");
+
+  const router = useRouter();
 
   useEffect(() => {
     async function getRefId() {
@@ -25,6 +28,7 @@ export default function ResultPage() {
       <div className="flex flex-col items-center gap-5">
         <h1 className="text-9xl">پرداخت موفق</h1>
         <h2>{refId}کد پیگیری</h2>
+        <Button onClick={() => router.push("/")}>بازگشت </Button>
       </div>
     </div>
   );

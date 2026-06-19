@@ -1,22 +1,31 @@
 "use client";
 
-import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import CourtsTable from "../../../features/dashboard/courts/CourtsTable";
+import CreateCourtForm from "@/features/dashboard/courts/CreateCourtForm";
+import { useState } from "react";
 
 export default function CourtsPage() {
-  return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Courts Management</h1>
+  const [toCreate, setToCreate] = useState(false);
 
-        <Button>
-          <Link href="/admin/courts/create">Add Court</Link>
-        </Button>
+  return (
+    <>
+      <div className="space-y-6 p-6">
+        <div className="flex items-center justify-between mb-20">
+          <h1 className="text-3xl font-bold">Courts Management</h1>
+
+          <Button
+            className={"bg-blue-500 hover:bg-blue-600"}
+            onClick={() => setToCreate(true)}
+          >
+            Add Court
+          </Button>
+        </div>
+
+        <CourtsTable />
       </div>
 
-      <CourtsTable />
-    </div>
+      <CreateCourtForm isOpen={toCreate} onClose={() => setToCreate(false)} />
+    </>
   );
 }

@@ -13,10 +13,10 @@ export async function GET() {
 
     if (!user) throw new AppError("Unauthorized", 401);
 
-    if (user.role !== "ADMIN") throw new AppError("you are not allowed", 401);
+    // if (user.role !== "ADMIN") throw new AppError("you are not allowed", 401);
 
     const reservations = await Reservation.find()
-      .populate("user", "phone")
+      .populate("user", "phone -_id")
       .populate("court", "name price isActive")
       .select("-expiresAt -updatedAt")
       .sort({ createdAt: -1 });

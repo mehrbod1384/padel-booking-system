@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { User } from "@/models/User";
+import { Court } from "@/models/Court";
+import { Reservation } from "@/models/Reservation";
 
 const DATABASE = process.env.DATABASE!;
 

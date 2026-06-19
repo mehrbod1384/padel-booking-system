@@ -2,7 +2,7 @@ import { queryKeys } from "@/lib/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCourtApi } from "../api/courtApi";
 
-export function useCreateCourt() {
+export function useDeleteCourt() {
   const queryClient = useQueryClient();
 
   const { mutate: deleteCourtMutation, isPending: isDeleting } = useMutation({

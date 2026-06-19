@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     return Response.json({
       success: true,
-      reservation,
+      data: reservation,
     });
   } catch (err) {
     console.log(err.response?.data || err.message);
