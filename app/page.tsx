@@ -45,7 +45,7 @@ export default function Home() {
           setSelectedCourt={setSelectedCourt}
         />
 
-        <Card className="mt-4 mx-auto rounded-xl max-w-95 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl">
+        <Card className="mt-4 mx-auto rounded-xl max-w-90 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl">
           <DateSelector
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}

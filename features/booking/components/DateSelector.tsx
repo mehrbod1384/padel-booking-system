@@ -24,7 +24,7 @@ export default function DateSelector({
           <button
             key={date.day}
             className={cn(
-              "px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-800 text-white transition-all shrink-0",
+              "px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-800 text-white hover:text-lime-300 hover:border-lime-300 transition-all shrink-0",
               selectedDate === date.fullDate &&
                 "border border-lime-300 text-lime-300",
             )}

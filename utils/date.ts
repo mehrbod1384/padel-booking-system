@@ -11,5 +11,7 @@ export function getDayRange(date: string) {
 }
 
 export function formatDate(date: string | Date) {
+  if (!date) return;
+
   return format(new Date(date), "MMM dd, yyyy");
 }

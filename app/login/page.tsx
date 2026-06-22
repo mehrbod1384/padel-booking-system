@@ -41,10 +41,13 @@ export default function LoginPage() {
           <input
             placeholder="Phone"
             value={phone}
+            className="border border-white"
             onChange={(e) => setPhone(e.target.value)}
           />
 
-          <button onClick={sendOtp}>Send OTP</button>
+          <button className="bg-white text-black" onClick={sendOtp}>
+            Send OTP
+          </button>
         </div>
       )}
 

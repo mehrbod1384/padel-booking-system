@@ -2,6 +2,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ClipLoader } from "react-spinners";
+import { formatPrice } from "../utils/helper";
+import { formatDate } from "@/utils/date";
 
 export default function BookingSummary({
   selectedCourt,
@@ -21,12 +24,12 @@ export default function BookingSummary({
   return (
     <Card
       className={cn(
-        "mt-4 mx-auto transition-all duration-500 overflow-hidden rounded-xl max-w-95 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl",
+        "mt-4 mx-auto transition-all duration-500 overflow-hidden rounded-xl max-w-90 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl",
         isReady ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
       )}
     >
       <CardContent className="p-0 flex items-center gap-5">
-        <div className="relative h-25 w-25">
+        <div className="relative h-23 w-20">
           <img
             src="/lasse-moller-tvXGDRjFb9g-unsplash.jpg"
             alt="Court"
@@ -43,13 +46,13 @@ export default function BookingSummary({
           </div>
 
           <div className="border-r pr-5 border-zinc-700 space-y-3">
-            <div className="flex items-center gap-4 text-zinc-300">
-              <Calendar size={16} />
-              <span className="text-xs">{selectedDate}</span>
+            <div className="flex items-center gap-2 text-zinc-300">
+              <Calendar size={14} />
+              <span className="text-xs">{formatDate(selectedDate)}</span>
             </div>
 
-            <div className="flex items-center gap-4 text-zinc-300">
-              <Clock size={16} />
+            <div className="flex items-center gap-2 text-zinc-300">
+              <Clock size={14} />
               <span className="text-xs">{selectedSlot}</span>
             </div>
           </div>
@@ -58,7 +61,7 @@ export default function BookingSummary({
         <div className="mt-12">
           <span className="font-semibold text-xs text-zinc-400">Price</span>
           <p className="text-xl text-zinc-300 font-bold mt-1">
-            ${selectedCourt?.price}
+            ${formatPrice(selectedCourt?.price)}
           </p>
         </div>
       </CardContent>
@@ -67,7 +70,7 @@ export default function BookingSummary({
         <div>
           <span className="font-semibold text-xs text-zinc-400">Total</span>
           <p className="text-lg text-zinc-300 font-bold">
-            ${selectedCourt?.price}
+            ${formatPrice(selectedCourt?.price)}
           </p>
         </div>
 
@@ -78,9 +81,11 @@ export default function BookingSummary({
           onClick={onBook}
         >
           <span></span>
-          <span className="text-lime-300">Book now</span>
+          <span className="text-lime-300">
+            {isBooking ? "Booking..." : "Book now"}
+          </span>
           <span className="rounded-full bg-lime-300 p-2 text-black flex items-center justify-center">
-            <ArrowRight size={24} />
+            {isBooking ? <ClipLoader size={20} /> : <ArrowRight size={24} />}
           </span>
         </Button>
       </div>

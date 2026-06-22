@@ -14,7 +14,7 @@ export async function GET(
 
     return Response.json({
       success: true,
-      refId: payment.refId,
+      data: payment,
     });
   } catch (err) {
     return Response.json({ success: false, err }, { status: 500 });

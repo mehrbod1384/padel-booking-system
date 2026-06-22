@@ -23,3 +23,9 @@ export async function bookReservation(payLoad: {
 
   return res.data.data;
 }
+
+export async function getMyBookings() {
+  const res = await axiosInstance.get("/reservations/my");
+
+  return res.data.data;
+}
