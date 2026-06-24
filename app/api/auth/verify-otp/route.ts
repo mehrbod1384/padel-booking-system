@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     return Response.json({
       success: true,
       message: "Login successful",
-      user,
+      data: user,
     });
   } catch (err) {
     return handleApiError(err);

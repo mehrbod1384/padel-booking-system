@@ -20,6 +20,7 @@
     "cookies-next": "^6.1.1",
     "date-fns": "^4.4.0",
     "date-fns-jalali": "^4.4.0-0",
+    "input-otp": "^1.4.2",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.17.0",
     "mongoose": "^9.6.2",

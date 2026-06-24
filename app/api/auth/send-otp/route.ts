@@ -10,11 +10,12 @@ export async function POST(req: Request) {
 
     const { phone } = body;
 
-    await sendOtp(phone);
+    const otp = await sendOtp(phone);
 
     return Response.json({
       success: true,
       message: "OTP sent successfuly",
+      data: otp,
     });
   } catch (err) {
     return handleApiError(err);

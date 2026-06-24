@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <div className="relative overflow-hidden">
       <img
-        src="/rodrigo-kugnharski-DnaofMNz0HM-unsplash.jpg"
+        src="/padel-racket.png"
         alt="Court"
         className="h-80 w-full object-cover"
       />

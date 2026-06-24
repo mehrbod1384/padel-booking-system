@@ -10,7 +10,7 @@ export async function sendOtp(phone: string) {
 
   const otp = generateOtp();
 
-  const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
   await OtpCode.create({
     phone,
@@ -18,7 +18,7 @@ export async function sendOtp(phone: string) {
     expiresAt,
   });
 
-  console.log("OTP:", otp);
+  return otp;
 }
 
 export async function verifyOtp(phone: string, code: string) {

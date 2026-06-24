@@ -13,7 +13,7 @@ export default function MyBookingPage() {
     <div className="container mx-auto max-w-5xl">
       <div className="relative overflow-hidden">
         <img
-          src="/rodrigo-kugnharski-DnaofMNz0HM-unsplash.jpg"
+          src="/padel-racket.png"
           alt="Court"
           className="h-65 w-full object-cover"
         />

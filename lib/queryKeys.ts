@@ -3,4 +3,5 @@ export const queryKeys = {
   reservations: ["reservations"],
   dashboard: ["dashboard"],
   payment: ["payment"],
+  auth: ["auth"],
 };

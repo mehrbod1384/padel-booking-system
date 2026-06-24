@@ -1,21 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const publicRoutes = ["/login", "/verify-otp"];
+
 export function proxy(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+  const token = req.cookies.get("token");
 
-  const isAuthRoute = req.nextUrl.pathname.startsWith("/api/protected");
+  const pathname = req.nextUrl.pathname;
 
-  if (isAuthRoute && !token) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Unauthorized",
-      },
-      {
-        status: 401,
-      },
-    );
+  const isPublicRoute = publicRoutes.some((route) =>
+    pathname.startsWith(route),
+  );
+
+  if (!token && !isPublicRoute) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  if (token && isPublicRoute) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
+};
