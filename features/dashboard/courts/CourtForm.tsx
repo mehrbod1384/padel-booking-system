@@ -55,7 +55,9 @@ export default function CourtForm({
               defaultValue={court?.name}
             />
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+              <p className="text-red-500 text-sm">
+                {errors.name.message as string}
+              </p>
             )}
           </div>
 
@@ -71,7 +73,9 @@ export default function CourtForm({
               defaultValue={court?.price}
             />
             {errors.price && (
-              <p className="text-red-500 text-sm">{errors.price.message}</p>
+              <p className="text-red-500 text-sm">
+                {errors.price.message as string}
+              </p>
             )}
           </div>
 

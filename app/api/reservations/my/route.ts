@@ -35,8 +35,6 @@ export async function GET() {
       },
     });
   } catch (err) {
-    console.log(err.response?.data || err.message);
-
     return handleApiError(err);
   }
 }

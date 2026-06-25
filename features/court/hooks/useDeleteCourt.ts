@@ -8,7 +8,7 @@ export function useDeleteCourt() {
   const { mutate: deleteCourtMutation, isPending: isDeleting } = useMutation({
     mutationFn: deleteCourtApi,
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.courts);
+      queryClient.invalidateQueries({ queryKey: queryKeys.courts });
     },
     onError: (err) => {
       console.log(err);

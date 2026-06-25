@@ -1,5 +1,6 @@
 "use client";
 
+import LogOutButton from "@/features/auth/components/LogoutButton";
 import PastReservations from "@/features/booking/components/myBookings/PastReservations";
 import TimeButtons from "@/features/booking/components/myBookings/TimeButtons";
 import UpcomingBookings from "@/features/booking/components/myBookings/UpcomingBookings";
@@ -10,7 +11,7 @@ export default function MyBookingPage() {
   const [time, setTime] = useState("upcoming");
 
   return (
-    <div className="container mx-auto max-w-5xl">
+    <div className="container mx-auto max-w-110">
       <div className="relative overflow-hidden">
         <img
           src="/padel-racket.png"
@@ -19,6 +20,7 @@ export default function MyBookingPage() {
         />
 
         <div className="absolute inset-0 bg-black/40" />
+        <LogOutButton />
 
         <div className="absolute left-8 top-10 z-10">
           <p className="text-lime-300 text-xs font-medium">PADEL COURTS</p>

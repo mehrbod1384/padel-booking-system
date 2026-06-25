@@ -55,7 +55,7 @@ export async function GET() {
         todayData,
       },
     });
-  } catch (err) {
+  } catch (err: any) {
     return handleApiError(err);
   }
 }

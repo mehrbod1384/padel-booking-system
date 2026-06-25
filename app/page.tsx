@@ -36,7 +36,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto max-w-5xl">
+    <div className="container mx-auto max-w-110">
       <HeroSection />
 
       <div className="-translate-y-22">

@@ -8,7 +8,7 @@ export function useEditCourt() {
   const { mutate: editCourtMutation, isPending: isEditing } = useMutation({
     mutationFn: updateCourtApi,
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.courts);
+      queryClient.invalidateQueries({ queryKey: queryKeys.courts });
     },
     onError: (err) => {
       console.log(err);

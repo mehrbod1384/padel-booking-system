@@ -44,7 +44,9 @@ export default function SendOtpForm({ setPhone, setStep }: any) {
             className="h-12 rounded-xl border-zinc-700 text-white focus-visible:ring-1 focus-visible:border-lime-300 focus-visible:ring-lime-300"
           />
           {errors.phone && (
-            <p className="ml-1 mt-1 text-red-500">{errors.phone.message}</p>
+            <p className="ml-1 mt-1 text-red-500">
+              {errors.phone.message as string}
+            </p>
           )}
         </div>
 

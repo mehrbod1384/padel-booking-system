@@ -6,7 +6,10 @@ export async function getConfirmedReservation() {
   return res.data.data;
 }
 
-export async function getAvalableSlots(courtId: string, date: string) {
+export async function getAvalableSlots(
+  courtId: string | undefined,
+  date: string | undefined,
+) {
   const res = await axiosInstance.get(
     `/availability/?courtId=${courtId}&date=${date}`,
   );

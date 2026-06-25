@@ -8,7 +8,7 @@ export function useCreateCourt() {
   const { mutate: createCourtMutation, isPending: isCreating } = useMutation({
     mutationFn: createCourtApi,
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.courts);
+      queryClient.invalidateQueries({ queryKey: queryKeys.courts });
     },
     onError: (err) => {
       console.log(err);

@@ -76,8 +76,6 @@ export async function GET(req: Request) {
       new URL(`/payment/result?paymentId=${payment._id}`, req.url),
     );
   } catch (err) {
-    console.log(err.response?.data || err.message);
-
     return handleApiError(err);
   }
 }

@@ -4,10 +4,11 @@ import { Card } from "@/components/ui/card";
 import { InputOTP, InputOTPSlot } from "@/components/ui/input-otp";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
 import { useVerifyOtp } from "../hooks/useVerifyOtp";
 import { ClipLoader } from "react-spinners";
 import { useEffect, useState } from "react";
+import { useSendOtp } from "../hooks/useSendOtp";
+import { cn } from "@/lib/utils";
 
 export default function VerifyOtpForm({
   phone,
@@ -18,8 +19,25 @@ export default function VerifyOtpForm({
 }) {
   const [code, setCode] = useState("");
   const [errors, setErrors] = useState({ code: "" });
+  const [timeLeft, setTimeLeft] = useState(300);
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 
   const { verifyOtpMutation, isVerifying } = useVerifyOtp();
+  const { sendOtpMutation, isSending } = useSendOtp();
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   useEffect(() => {
     console.log("hey");
@@ -35,7 +53,19 @@ export default function VerifyOtpForm({
     }
   }, [code]);
 
-  function onSubmit(e) {
+  function resendCode() {
+    if (timeLeft > 0) return;
+    sendOtpMutation(
+      { phone },
+      {
+        onSuccess: () => {
+          setTimeLeft(300);
+        },
+      },
+    );
+  }
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (code.length === 0) {
@@ -57,8 +87,6 @@ export default function VerifyOtpForm({
       },
     );
   }
-
-  console.log(code);
 
   return (
     <Card className="rounded-lg max-w-90 mx-auto p-4 border-zinc-700 bg-zinc-800/50">
@@ -110,6 +138,19 @@ export default function VerifyOtpForm({
           <ShieldCheck className="text-lime-300" />
           <p className="text-xs text-zinc-400 w-45">
             This code will expire in 5 minutes for your security
+            <span
+              className={cn(
+                "text-lime-300 ml-2",
+                timeLeft < 0 && "hover:cursor-pointer underline",
+              )}
+              onClick={resendCode}
+            >
+              {timeLeft > 0
+                ? `${formattedTime}`
+                : isSending
+                  ? "Sending..."
+                  : "Resend Code"}
+            </span>
           </p>
         </div>
 

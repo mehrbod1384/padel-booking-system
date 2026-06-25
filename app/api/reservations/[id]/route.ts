@@ -4,7 +4,7 @@ import { Reservation } from "@/models/Reservation";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
@@ -18,8 +18,6 @@ export async function GET(
       data: reservation,
     });
   } catch (err) {
-    console.log(err.response?.data || err.message);
-
     return handleApiError(err);
   }
 }

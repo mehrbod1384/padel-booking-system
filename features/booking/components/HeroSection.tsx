@@ -1,3 +1,5 @@
+import LogOutButton from "@/features/auth/components/LogoutButton";
+
 export default function HeroSection() {
   return (
     <div className="relative overflow-hidden">
@@ -8,6 +10,7 @@ export default function HeroSection() {
       />
 
       <div className="absolute inset-0 bg-black/40" />
+      <LogOutButton />
 
       <div className="absolute left-8 top-10 z-10">
         <p className="text-lime-300 text-xs font-medium">PADEL COURTS</p>

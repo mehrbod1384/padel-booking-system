@@ -9,7 +9,7 @@ export async function getUserFromToken() {
 
   if (!token) throw new AppError("Token required", 400);
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+  const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
 
   const user = await User.findById(decoded.userId);
 

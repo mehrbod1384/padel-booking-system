@@ -1,6 +1,5 @@
 "use client";
 
-import { useBooking } from "@/features/booking/hooks/useBooking";
 import ReservationsTable from "@/features/dashboard/reservations/reservationsTable";
 
 export default function ReservationPage() {

@@ -11,3 +11,9 @@ export async function verifyOtp(payload: { phone: string; code: string }) {
 
   return res.data.data;
 }
+
+export async function logout() {
+  const res = await axiosInstance.post("/auth/logout");
+
+  return res.data;
+}

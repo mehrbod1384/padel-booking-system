@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { AppError } from "./AppError";
 
-export function handleApiError(error: unknown) {
+export function handleApiError(error: any) {
   if (error instanceof AppError) {
     return NextResponse.json(
       {
@@ -14,7 +14,8 @@ export function handleApiError(error: unknown) {
     );
   }
 
-  console.error(error.message);
+  console.log(error);
+  console.log(error.message);
 
   return NextResponse.json(
     {

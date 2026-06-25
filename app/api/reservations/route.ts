@@ -17,8 +17,6 @@ export async function POST(req: Request) {
       data: reservation,
     });
   } catch (err) {
-    console.log(err.response?.data || err.message);
-
     return handleApiError(err);
   }
 }

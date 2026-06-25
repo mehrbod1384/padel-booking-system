@@ -45,11 +45,17 @@ export async function verifyOtp(phone: string, code: string) {
 
   cookieStore.set("token", token, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
   return user;
+}
+
+export async function logout() {
+  const cookieStore = await cookies();
+
+  cookieStore.delete("token");
 }
