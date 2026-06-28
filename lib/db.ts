@@ -17,11 +17,15 @@ if (!cached) {
 }
 
 export async function connectDB() {
-  if (cached.conn) return cached.conn;
+  try {
+    if (cached.conn) return cached.conn;
 
-  if (!cached.promise) cached.promise = mongoose.connect(DATABASE);
+    if (!cached.promise) cached.promise = mongoose.connect(DATABASE);
 
-  cached.conn = await cached.promise;
+    cached.conn = await cached.promise;
 
-  return cached.conn;
+    return cached.conn;
+  } catch (err) {
+    console.log("dataBase error :", err);
+  }
 }
