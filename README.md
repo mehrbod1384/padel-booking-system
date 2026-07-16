@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏓 Padel Booking System
 
-## Getting Started
+A modern full-stack padel court booking application built with **Next.js**, **TypeScript**, **MongoDB**, and **React Query**.
 
-First, run the development server:
+Users can authenticate with OTP, reserve courts, complete online payments via ZarinPal, and manage their bookings through a clean and responsive interface.
+
+---
+
+## ✨ Features
+
+- OTP Authentication
+- JWT & Protected Routes
+- Court Booking
+- Real-time Slot Availability
+- ZarinPal Payment Integration
+- Payment Verification
+- My Bookings
+- Admin Court Management
+- Responsive UI
+
+---
+
+## 🚀 Tech Stack
+
+**Frontend**
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- React Query
+
+**Backend**
+
+- Next.js Route Handlers
+- MongoDB
+- Mongoose
+- JWT Authentication
+
+---
+
+## 📦 Installation
 
 ```bash
+git clone https://github.com/mehrbod1384/padel-booking-system.git
+
+cd padel-booking-system
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE=mongodb+srv://mehrbod:mehrbod1384@padel-booking-system.7t1jbuc.mongodb.net/padel-booking-system
 
-## Learn More
+JWT_SECRET=my_super_secret_key
 
-To learn more about Next.js, take a look at the following resources:
+ZARINPAL_MERCHANT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_APP_URL=https://padel-booking-system-sable.vercel.app
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📋 Booking Flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+Login
+   ↓
+Choose Court
+   ↓
+Choose Date & Time
+   ↓
+Online Payment
+   ↓
+Payment Verification
+   ↓
+Reservation Confirmed
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📄 License
+
+This project is built for educational and portfolio purposes.
+
+---
+
+**Developed by Mehrbod Moteghaedi**

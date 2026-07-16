@@ -6,16 +6,9 @@ export default function CourtTabsSkeleton() {
       {[1, 2, 3].map((item) => (
         <div
           key={item}
-          className="
-            flex-1
-            rounded-3xl
-            border
-            border-zinc-800
-            bg-zinc-900
-            p-4
-          "
+          className="rounded-3xl border border-zinc-800 bg-zinc-900 p-3.25"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Skeleton className="h-4 w-4 rounded-2xl" />
 
             <div className="space-y-2">

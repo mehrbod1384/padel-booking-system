@@ -15,9 +15,7 @@ export async function GET(req: Request) {
     const status = searchParams.get("Status");
 
     if (!authority) {
-      return NextResponse.redirect(
-        new URL("/payment/result?status=failed", req.url),
-      );
+      return NextResponse.redirect(new URL("/payment/result/failed", req.url));
     }
 
     const payment = await Payment.findOne({
@@ -25,9 +23,7 @@ export async function GET(req: Request) {
     });
 
     if (!payment) {
-      return NextResponse.redirect(
-        new URL("/payment/result?status=failed", req.url),
-      );
+      return NextResponse.redirect(new URL("/payment/result/failed", req.url));
     }
 
     if (payment.status === "SUCCESS") {
@@ -40,17 +36,13 @@ export async function GET(req: Request) {
       payment.status = "FAILED";
       await payment.save();
 
-      return NextResponse.redirect(
-        new URL("/payment/result?status=failed", req.url),
-      );
+      return NextResponse.redirect(new URL("/payment/result/failed", req.url));
     }
 
     const verifyResult = await verifyPayment(payment.amount, authority);
 
     if (verifyResult.code !== 100) {
-      return NextResponse.redirect(
-        new URL("/payment/result?status=failed", req.url),
-      );
+      return NextResponse.redirect(new URL("/payment/result/failed", req.url));
     }
 
     const reservation = await Reservation.findById(payment.reservation);
@@ -59,9 +51,7 @@ export async function GET(req: Request) {
       payment.status = "FAILED";
       await payment.save();
 
-      return NextResponse.redirect(
-        new URL("/payment/result?status=failed", req.url),
-      );
+      return NextResponse.redirect(new URL("/payment/result/failed", req.url));
     }
 
     payment.status = "SUCCESS";
