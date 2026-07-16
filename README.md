@@ -1,8 +1,16 @@
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![MongoDB](https://img.shields.io/badge/MongoDB-green)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
+
 # 🏓 Padel Booking System
 
 A modern full-stack padel court booking application built with **Next.js**, **TypeScript**, **MongoDB**, and **React Query**.
 
 Users can authenticate with OTP, reserve courts, complete online payments via ZarinPal, and manage their bookings through a clean and responsive interface.
+
+![Booking](public/screenshots/booking.png)
+![My Bookings](public/screenshots/my-bookings.png)
 
 ---
 
@@ -19,6 +27,9 @@ Users can authenticate with OTP, reserve courts, complete online payments via Za
 - Responsive UI
 
 ---
+
+![Login](public/screenshots/login.png)
+![Verify OTP](public/screenshots/verify-otp.png)
 
 ## 🚀 Tech Stack
 
@@ -44,11 +55,17 @@ Users can authenticate with OTP, reserve courts, complete online payments via Za
 
 ```bash
 git clone https://github.com/mehrbod1384/padel-booking-system.git
+```
 
+```bash
 cd padel-booking-system
+```
 
+```bash
 npm install
+```
 
+```bash
 npm run dev
 ```
 
@@ -57,13 +74,13 @@ npm run dev
 ## 🔑 Environment Variables
 
 ```env
-DATABASE=mongodb+srv://mehrbod:mehrbod1384@padel-booking-system.7t1jbuc.mongodb.net/padel-booking-system
+DATABASE=
 
-JWT_SECRET=my_super_secret_key
+JWT_SECRET=
 
-ZARINPAL_MERCHANT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ZARINPAL_MERCHANT_ID=
 
-NEXT_PUBLIC_APP_URL=https://padel-booking-system-sable.vercel.app
+NEXT_PUBLIC_APP_URL=
 ```
 
 ---
@@ -85,6 +102,9 @@ Reservation Confirmed
 ```
 
 ---
+
+![Payment Success](public/screenshots/payment-success.png)
+![Payment Failed](public/screenshots/payment-failed.png)
 
 ## 📄 License
 

@@ -27,10 +27,10 @@ export default function LoginPage() {
           </p>
 
           <h1 className="mt-2 text-4xl font-bold leading-none text-white">
-            {step === "phone" ? "Log in to your" : "Enter the code we sent"}
+            {step === "phone" ? "Log in to your" : "Enter the code we"}
             <br />
             <span className="text-lime-300">
-              {step === "phone" ? "acount" : "you"}
+              {step === "phone" ? "acount" : "sent you"}
             </span>
           </h1>
 
