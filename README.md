@@ -24,7 +24,7 @@ Users can authenticate with OTP, reserve courts, complete online payments via Za
 - Payment Verification
 - My Bookings
 - Admin Court Management
-- Responsive UI
+- Mobile first UI
 
 ---
 
