@@ -53,6 +53,11 @@ reservationSchema.index(
   },
   {
     unique: true,
+    partialFilterExpression: {
+      status: {
+        $in: ["PENDING", "CONFIRMED"],
+      },
+    },
   },
 );
 

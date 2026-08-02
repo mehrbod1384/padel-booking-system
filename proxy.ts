@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getUserFromToken } from "./lib/auth";
 
 const publicRoutes = ["/login", "/verify-otp"];
 
-export function proxy(req: NextRequest) {
-  const token = req.cookies.get("token");
+export async function proxy(req: NextRequest) {
+  const User = await getUserFromToken();
 
   const pathname = req.nextUrl.pathname;
 
@@ -11,11 +12,11 @@ export function proxy(req: NextRequest) {
     pathname.startsWith(route),
   );
 
-  if (!token && !isPublicRoute) {
+  if (!User && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (token && isPublicRoute) {
+  if (User && isPublicRoute) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
