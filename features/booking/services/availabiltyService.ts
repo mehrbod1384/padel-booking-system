@@ -4,6 +4,20 @@ import { getDayRange } from "@/utils/date";
 import { AppError } from "@/lib/errors/AppError";
 
 export async function getAvailableSlots(courtId: string, date: string) {
+  await Reservation.updateMany(
+    {
+      status: "PENDING",
+      expiresAt: {
+        $lt: new Date(),
+      },
+    },
+    {
+      $set: {
+        status: "EXPIRED",
+      },
+    },
+  );
+
   const { startOfDay, endOfDay } = getDayRange(date);
 
   if (!courtId || !date) throw new AppError("courtId and date required", 400);
