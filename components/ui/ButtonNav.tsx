@@ -10,7 +10,7 @@ export default function BottomNav() {
   if (pathname !== "/" && pathname !== "/my-bookings") return null;
 
   return (
-    <div className=" fixed bottom-4 left-1/2 z-50 -translate-x-1/2 w-90 ">
+    <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 w-90 ">
       <div className="flex items-center justify-between text-xs  rounded-xl bg-zinc-800/50 p-3 backdrop-blur-3xl border border-zinc-800">
         <Link
           href="/"

@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/lib/queryKeys";
-import { getUserFromToken } from "@/lib/auth";
+import { getProfile } from "../api/authApi";
 
 export function useUser() {
   const {
@@ -11,7 +11,7 @@ export function useUser() {
     error,
   } = useQuery({
     queryKey: queryKeys.auth,
-    queryFn: getUserFromToken,
+    queryFn: getProfile,
   });
 
   return { user, isLoading, error };

@@ -32,7 +32,7 @@ export default function UpcomingBookings() {
           {upcomingReservations.length}
         </span>
       </div>
-      <div className={cn("h-125 overflow-x-auto rounded-lg mt-1 mb-10")}>
+      <div className={cn("h-125 overflow-x-auto rounded-lg mt-1 mb-15")}>
         {upcomingReservations.map((reservation: any) => (
           <ReservationCard key={reservation._id} reservation={reservation} />
         ))}

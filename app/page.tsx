@@ -10,6 +10,8 @@ import DateSelector from "@/features/booking/components/DateSelector";
 import Slots from "@/features/booking/components/Slots";
 import BookingSummary from "@/features/booking/components/BookingSummary";
 import HeroSection from "@/features/booking/components/HeroSection";
+import ProtectedRoute from "@/components/layout/ProtectedRoute";
+import ButtonNav from "@/components/ui/ButtonNav";
 
 export default function Home() {
   const [selectedCourt, setSelectedCourt] = useState("");
@@ -36,37 +38,41 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto max-w-110">
-      <HeroSection />
+    <ProtectedRoute>
+      <div className="container mx-auto max-w-110 ">
+        <HeroSection />
 
-      <div className="-translate-y-22">
-        <CourtInfo
-          selectedCourt={selectedCourt}
-          setSelectedCourt={setSelectedCourt}
-        />
-
-        <Card className="mt-4 mx-auto rounded-xl max-w-90 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl">
-          <DateSelector
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
+        <div className="-translate-y-22">
+          <CourtInfo
+            selectedCourt={selectedCourt}
+            setSelectedCourt={setSelectedCourt}
           />
 
-          <Slots
+          <Card className="mt-4 mx-auto rounded-xl max-w-90 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl">
+            <DateSelector
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+            />
+
+            <Slots
+              selectedCourt={selectedCourt}
+              selectedDate={selectedDate}
+              selectedSlot={selectedSlot}
+              setSelectedSlot={setSelectedSlot}
+            />
+          </Card>
+
+          <BookingSummary
             selectedCourt={selectedCourt}
             selectedDate={selectedDate}
             selectedSlot={selectedSlot}
-            setSelectedSlot={setSelectedSlot}
+            isBooking={isBooking}
+            onBook={book}
           />
-        </Card>
-
-        <BookingSummary
-          selectedCourt={selectedCourt}
-          selectedDate={selectedDate}
-          selectedSlot={selectedSlot}
-          isBooking={isBooking}
-          onBook={book}
-        />
+        </div>
       </div>
-    </div>
+
+      <ButtonNav />
+    </ProtectedRoute>
   );
 }

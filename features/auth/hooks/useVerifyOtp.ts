@@ -9,8 +9,7 @@ export function useVerifyOtp() {
 
   const { mutate: verifyOtpMutation, isPending: isVerifying } = useMutation({
     mutationFn: verifyOtp,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       router.push("/");
     },
     onError: (error) => console.error(error),

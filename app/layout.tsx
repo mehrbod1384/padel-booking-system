@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/providers/queryProvider";
-import ButtonNav from "@/components/ui/ButtonNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +30,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-zinc-950">
         <QueryProvider>
-          <main className="pb-2">{children}</main>
-
-          <ButtonNav />
+          <main>{children}</main>
         </QueryProvider>
       </body>
     </html>
