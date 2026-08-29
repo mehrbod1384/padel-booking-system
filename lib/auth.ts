@@ -1,6 +1,8 @@
 import { User } from "@/models/User";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { AppError } from "./errors/AppError";
+import { logger } from "./logger";
 
 export async function getUserFromToken() {
   const cookieStore = await cookies();
@@ -15,7 +17,15 @@ export async function getUserFromToken() {
 
     return user;
   } catch (err) {
-    console.log(err);
+    logger.error("Failed to authenticate user from token", err);
     return null;
   }
+}
+
+export async function requireUser() {
+  const user = await getUserFromToken();
+
+  if (!user) throw new AppError("Unauthorized", 401);
+
+  return user;
 }

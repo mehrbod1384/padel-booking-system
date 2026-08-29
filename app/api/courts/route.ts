@@ -1,23 +1,29 @@
-import { getAllCourt } from "@/features/court/services/courtServices";
-import { connectDB } from "@/lib/db";
+import {
+  createCourt,
+  getAllCourt,
+} from "@/features/court/services/courtServices";
+import { routeHandler } from "@/lib/routeHandler";
+import { createCourtSchema } from "@/lib/validation";
 
-export async function GET() {
-  try {
-    await connectDB();
+export const GET = routeHandler(async () => {
+  const courts = await getAllCourt();
 
-    const courts = await getAllCourt();
+  return Response.json({
+    success: true,
+    data: courts,
+  });
+});
+
+export const POST = routeHandler(
+  async (_req, { body }) => {
+    const { name, price } = body as { name: string; price: number };
+
+    const court = await createCourt(name, price);
 
     return Response.json({
       success: true,
-      courts,
+      court,
     });
-  } catch (err) {
-    return Response.json(
-      {
-        success: false,
-        err,
-      },
-      { status: 500 },
-    );
-  }
-}
+  },
+  { schema: createCourtSchema },
+);

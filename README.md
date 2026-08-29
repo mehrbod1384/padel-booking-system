@@ -1,4 +1,4 @@
-![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-green)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
@@ -35,7 +35,7 @@ Users can authenticate with OTP, reserve courts, complete online payments via Za
 
 **Frontend**
 
-- Next.js 15
+- Next.js 16
 - React
 - TypeScript
 - Tailwind CSS

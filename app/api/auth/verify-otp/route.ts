@@ -1,14 +1,10 @@
 import { verifyOtp } from "@/features/auth/services/authService";
-import { connectDB } from "@/lib/db";
-import { handleApiError } from "@/lib/errors/handleApiError";
+import { routeHandler } from "@/lib/routeHandler";
+import { verifyOtpSchema } from "@/lib/validation";
 
-export async function POST(req: Request) {
-  try {
-    await connectDB();
-
-    const body = await req.json();
-
-    const { phone, code } = body;
+export const POST = routeHandler(
+  async (_req, { body }) => {
+    const { phone, code } = body as { phone: string; code: string };
 
     const user = await verifyOtp(phone, code);
 
@@ -17,7 +13,6 @@ export async function POST(req: Request) {
       message: "Login successful",
       data: user,
     });
-  } catch (err) {
-    return handleApiError(err);
-  }
-}
+  },
+  { schema: verifyOtpSchema },
+);

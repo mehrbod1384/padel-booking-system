@@ -34,4 +34,6 @@ const paymentSchema = new Schema(
   },
 );
 
+paymentSchema.index({ reservation: 1 });
+
 export const Payment = models.Payment || model("Payment", paymentSchema);

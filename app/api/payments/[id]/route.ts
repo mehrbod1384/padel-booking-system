@@ -1,22 +1,13 @@
-import { connectDB } from "@/lib/db";
+import { routeHandler } from "@/lib/routeHandler";
 import { Payment } from "@/models/Payment";
 
-export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  try {
-    await connectDB();
+export const GET = routeHandler(async (_req, { params }) => {
+  const { id } = await params;
 
-    const { id } = await params;
+  const payment = await Payment.findById(id);
 
-    const payment = await Payment.findById(id);
-
-    return Response.json({
-      success: true,
-      data: payment,
-    });
-  } catch (err) {
-    return Response.json({ success: false, err }, { status: 500 });
-  }
-}
+  return Response.json({
+    success: true,
+    data: payment,
+  });
+});

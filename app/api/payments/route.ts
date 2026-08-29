@@ -2,14 +2,13 @@ import {
   checkExistingPayment,
   createPayment,
 } from "@/features/payment/services/paymentService";
-import { handleApiError } from "@/lib/errors/handleApiError";
+import { routeHandler } from "@/lib/routeHandler";
+import { createPaymentSchema } from "@/lib/validation";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-
-    const { reservationId } = body;
+export const POST = routeHandler(
+  async (_req, { body }) => {
+    const { reservationId } = body as { reservationId: string };
 
     const existingPayment = await checkExistingPayment(reservationId);
 
@@ -25,7 +24,6 @@ export async function POST(req: Request) {
       paymentId: payment._id,
       paymentUrl: paymentGeteway.paymentUrl,
     });
-  } catch (err) {
-    return handleApiError(err);
-  }
-}
+  },
+  { schema: createPaymentSchema, auth: true },
+);

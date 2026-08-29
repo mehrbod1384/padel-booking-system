@@ -3,7 +3,7 @@ import { Reservation } from "@/models/Reservation";
 import { getDayRange } from "@/utils/date";
 import { handleReservationDates } from "../utils/handleReservationDates";
 import { AppError } from "@/lib/errors/AppError";
-import { getUserFromToken } from "@/lib/auth";
+import { requireUser } from "@/lib/auth";
 
 export async function checkReservationExist(
   courtId: string,
@@ -43,7 +43,7 @@ export async function createReservation(
   slot: string,
   date: string,
 ) {
-  const user = await getUserFromToken();
+  const user = await requireUser();
 
   if (!courtId || !date || !slot) throw new AppError("Missing fields", 400);
 
@@ -58,25 +58,46 @@ export async function createReservation(
 
   if (slotDateTime < now) throw new AppError("Slot has already started", 400);
 
+  const court = await Court.findById(courtId).select("price");
+
+  if (!court) throw new AppError("Court not found", 404);
+
+  const { startOfDay, endOfDay } = getDayRange(date);
+
+  await Reservation.deleteMany({
+    court: courtId,
+    slot,
+    date: {
+      $gte: startOfDay,
+      $lte: endOfDay,
+    },
+    status: "PENDING",
+    expiresAt: { $lt: new Date() },
+  });
+
   const existing = await checkReservationExist(courtId, slot, date);
 
   if (existing) throw new AppError("Slot already reserved", 400);
 
-  const { price: amount } = await Court.findById(courtId).select("price");
+  try {
+    const reservation = await Reservation.create({
+      user: user._id,
 
-  const reservation = await Reservation.create({
-    user: user._id,
+      court: courtId,
 
-    court: courtId,
+      date,
 
-    date,
+      slot,
 
-    slot,
+      amount: court.price,
 
-    amount,
+      status: "PENDING",
+    });
 
-    status: "PENDING",
-  });
+    return reservation;
+  } catch (err: any) {
+    if (err?.code === 11000) throw new AppError("Slot already reserved", 400);
 
-  return reservation;
+    throw err;
+  }
 }

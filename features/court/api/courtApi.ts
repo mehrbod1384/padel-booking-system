@@ -3,7 +3,7 @@ import { axiosInstance } from "@/lib/axiosInstance";
 export async function getAllCourtsApi() {
   const res = await axiosInstance.get("/courts");
 
-  return res.data.courts;
+  return res.data.data;
 }
 
 export async function createCourtApi(payload: {

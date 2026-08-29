@@ -2,50 +2,29 @@ import {
   deleteCourt,
   updateCourt,
 } from "@/features/court/services/courtServices";
-import { connectDB } from "@/lib/db";
+import { routeHandler } from "@/lib/routeHandler";
+import { updateCourtSchema } from "@/lib/validation";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  try {
-    await connectDB();
-
-    const body = await req.json();
+export const PATCH = routeHandler(
+  async (_req, { body, params }) => {
     const { id } = await params;
 
-    const court = await updateCourt(id, body);
+    const court = await updateCourt(id, body as any);
 
     return Response.json({
       success: true,
       court,
     });
-  } catch (err) {
-    return Response.json(
-      {
-        success: false,
-        err,
-      },
-      { status: 500 },
-    );
-  }
-}
+  },
+  { schema: updateCourtSchema },
+);
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  try {
-    await connectDB();
+export const DELETE = routeHandler(async (_req, { params }) => {
+  const { id } = await params;
 
-    const { id } = await params;
+  await deleteCourt(id);
 
-    await deleteCourt(id);
-
-    return Response.json({
-      success: true,
-    });
-  } catch (err) {
-    return Response.json({ success: false, err }, { status: 500 });
-  }
-}
+  return Response.json({
+    success: true,
+  });
+});

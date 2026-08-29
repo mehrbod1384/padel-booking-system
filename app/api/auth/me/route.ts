@@ -1,19 +1,12 @@
 import { getUserFromToken } from "@/lib/auth";
-import { connectDB } from "@/lib/db";
-import { handleApiError } from "@/lib/errors/handleApiError";
+import { routeHandler } from "@/lib/routeHandler";
 
-export async function GET() {
-  try {
-    await connectDB();
+export const GET = routeHandler(async () => {
+  const user = await getUserFromToken();
 
-    const user = await getUserFromToken();
-
-    return Response.json({
-      success: true,
-      message: "Profile get successfuly",
-      data: user,
-    });
-  } catch (err) {
-    return handleApiError(err);
-  }
-}
+  return Response.json({
+    success: true,
+    message: "Profile retrieved successfully",
+    data: user,
+  });
+});

@@ -31,7 +31,7 @@ export default function PastReservations() {
           {pastReservations.length}
         </span>
       </div>
-      <div className="h-125 overflow-x-auto rounded-lg mt-1 mb-10">
+      <div className="h-125 overflow-x-auto rounded-lg mt-1 mb-15">
         {pastReservations.map((reservation: any) => (
           <ReservationCard key={reservation._id} reservation={reservation} />
         ))}

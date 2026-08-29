@@ -61,5 +61,7 @@ reservationSchema.index(
   },
 );
 
+reservationSchema.index({ user: 1 });
+
 export const Reservation =
   models.Reservation || model("Reservation", reservationSchema);

@@ -1,14 +1,14 @@
-import { connectDB } from "@/lib/db";
 import { createReservation } from "@/features/booking/services/reservationService";
-import { handleApiError } from "@/lib/errors/handleApiError";
+import { routeHandler } from "@/lib/routeHandler";
+import { createReservationSchema } from "@/lib/validation";
 
-export async function POST(req: Request) {
-  try {
-    await connectDB();
-
-    const body = await req.json();
-
-    const { courtId, date, slot } = body;
+export const POST = routeHandler(
+  async (_req, { body }) => {
+    const { courtId, date, slot } = body as {
+      courtId: string;
+      date: string;
+      slot: string;
+    };
 
     const reservation = await createReservation(courtId, slot, date);
 
@@ -16,7 +16,6 @@ export async function POST(req: Request) {
       success: true,
       data: reservation,
     });
-  } catch (err) {
-    return handleApiError(err);
-  }
-}
+  },
+  { schema: createReservationSchema, auth: true },
+);

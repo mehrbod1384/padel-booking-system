@@ -16,10 +16,22 @@ const otpCodeSchema = new Schema(
       type: Date,
       required: true,
     },
+
+    attempts: {
+      type: Number,
+      default: 0,
+    },
+
+    lockedUntil: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
   },
 );
+
+otpCodeSchema.index({ phone: 1 });
 
 export const OtpCode = models.OtpCode || model("OtpCode", otpCodeSchema);
