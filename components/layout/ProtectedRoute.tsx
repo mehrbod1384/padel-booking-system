@@ -14,7 +14,7 @@ function ProtectedRoute({ children }: { children: ReactNode }) {
     );
 
   if (!user) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   return children;

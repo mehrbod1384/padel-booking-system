@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 const publicRoutes = ["/login", "/verify-otp"];
 
@@ -11,11 +12,23 @@ export async function proxy(req: NextRequest) {
     pathname.startsWith(route),
   );
 
-  if (!token && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/login", req.url));
+  let isTokenValid = false;
+  if (token) {
+    try {
+      jwt.verify(token.value, process.env.JWT_SECRET!);
+      isTokenValid = true;
+    } catch {
+      isTokenValid = false;
+    }
   }
 
-  if (token && isPublicRoute) {
+  if (!isTokenValid && !isPublicRoute) {
+    const response = NextResponse.redirect(new URL("/login", req.url));
+    if (token) response.cookies.delete("token");
+    return response;
+  }
+
+  if (isTokenValid && isPublicRoute) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 

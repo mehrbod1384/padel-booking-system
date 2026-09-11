@@ -58,6 +58,7 @@ export function routeHandler(
         params: ctx?.params,
       })) as Response;
     } catch (err) {
+      console.log(err.message);
       return handleApiError(err);
     }
   };

@@ -23,7 +23,7 @@ export default function Home() {
   function book() {
     bookReservationMutation(
       {
-        courtId: selectedCourt,
+        courtId: selectedCourt._id,
         date: selectedDate,
         slot: selectedSlot,
       },
@@ -45,13 +45,19 @@ export default function Home() {
         <div className="-translate-y-22">
           <CourtInfo
             selectedCourt={selectedCourt}
-            setSelectedCourt={setSelectedCourt}
+            setSelectedCourt={(court: string) => {
+              setSelectedCourt(court);
+              setSelectedSlot("");
+            }}
           />
 
           <Card className="mt-4 mx-auto rounded-xl max-w-90 sm:w-auto p-4 border-zinc-800 bg-zinc-800/50 backdrop-blur-xl">
             <DateSelector
               selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
+              setSelectedDate={(date: string) => {
+                setSelectedDate(date);
+                setSelectedSlot("");
+              }}
             />
 
             <Slots
