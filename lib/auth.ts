@@ -11,7 +11,9 @@ export async function getUserFromToken() {
   if (!token) return null;
 
   try {
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      userId: string;
+    };
 
     const user = await User.findById(decoded.userId);
 

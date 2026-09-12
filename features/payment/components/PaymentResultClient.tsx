@@ -25,6 +25,8 @@ export default function PaymentResultClient({
       </div>
     );
 
+  if (!payment || !reservation) return null;
+
   return (
     <div className="container mx-auto max-w-110">
       <div className="relative overflow-hidden">

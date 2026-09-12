@@ -4,12 +4,14 @@ import { LayoutGrid } from "lucide-react";
 import { formatPrice } from "../utils/helper";
 import CourtTabsSkeleton from "./CourtSkeleton";
 
+import type { Court } from "@/features/court/types";
+
 export default function CourtInfo({
   selectedCourt,
   setSelectedCourt,
 }: {
-  selectedCourt: string;
-  setSelectedCourt: (court: any) => void;
+  selectedCourt: Court | null;
+  setSelectedCourt: (court: Court) => void;
 }) {
   const { courts, isLoading } = useCourt();
 
@@ -18,7 +20,7 @@ export default function CourtInfo({
       {isLoading ? (
         <CourtTabsSkeleton />
       ) : (
-        courts.map((court: any) => (
+        courts?.map((court) => (
           <button
             key={court._id}
             onClick={() => setSelectedCourt(court)}

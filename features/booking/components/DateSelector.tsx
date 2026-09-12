@@ -2,12 +2,14 @@ import { cn } from "@/lib/utils";
 import { Calendar } from "lucide-react";
 import { generateBookingDates } from "../utils/generateBookingDates";
 
+import type { BookingDate } from "../types";
+
 export default function DateSelector({
   selectedDate,
   setSelectedDate,
 }: {
   selectedDate: string;
-  setSelectedDate: any;
+  setSelectedDate: (date: string) => void;
 }) {
   const bookingDates = generateBookingDates();
 
@@ -20,7 +22,7 @@ export default function DateSelector({
         <span>Select Date</span>
       </h2>
       <div className="flex gap-3 overflow-x-auto pb-2">
-        {bookingDates.map((date: any) => (
+        {bookingDates.map((date: BookingDate) => (
           <button
             key={date.day}
             className={cn(

@@ -31,7 +31,7 @@ export default function CourtsTable() {
           </TableHeader>
 
           <TableBody>
-            {courts?.map((court: any) => (
+            {courts?.map((court) => (
               <CourtRow key={court._id} court={court} />
             ))}
           </TableBody>

@@ -8,8 +8,10 @@ import ButtonNav from "@/components/ui/ButtonNav";
 
 import { useState } from "react";
 
+import type { BookingPeriod } from "@/features/booking/types";
+
 export default function MyBookingPage() {
-  const [time, setTime] = useState("upcoming");
+  const [time, setTime] = useState<BookingPeriod>("upcoming");
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Bookmark } from "lucide-react";
 
-export default function RefIdCard({ refId }: { refId: string }) {
+export default function RefIdCard({ refId }: { refId: string | null }) {
   return (
     <Card className="max-w-90 mx-auto rounded-lg bg-zinc-800/50 p-4 border border-zinc-700/50">
       <div className="flex items-center gap-2">

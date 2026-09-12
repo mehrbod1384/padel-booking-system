@@ -6,6 +6,8 @@ import { ClipLoader } from "react-spinners";
 import { formatPrice } from "../utils/helper";
 import { formatDate } from "@/utils/date";
 
+import type { Court } from "@/features/court/types";
+
 export default function BookingSummary({
   selectedCourt,
   selectedDate,
@@ -13,7 +15,7 @@ export default function BookingSummary({
   isBooking,
   onBook,
 }: {
-  selectedCourt: any;
+  selectedCourt: Court | null;
   selectedDate: string;
   selectedSlot: string;
   isBooking: boolean;
@@ -61,7 +63,7 @@ export default function BookingSummary({
         <div className="mt-12">
           <span className="font-semibold text-xs text-zinc-400">Price</span>
           <p className="text-xl text-zinc-300 font-bold mt-1">
-            ${formatPrice(selectedCourt?.price)}
+            ${formatPrice(selectedCourt?.price ?? 0)}
           </p>
         </div>
       </CardContent>
@@ -70,7 +72,7 @@ export default function BookingSummary({
         <div>
           <span className="font-semibold text-xs text-zinc-400">Total</span>
           <p className="text-lg text-zinc-300 font-bold">
-            ${formatPrice(selectedCourt?.price)}
+            ${formatPrice(selectedCourt?.price ?? 0)}
           </p>
         </div>
 

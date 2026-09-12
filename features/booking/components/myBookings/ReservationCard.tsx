@@ -4,7 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarDays, Clock } from "lucide-react";
 import { formatDate } from "@/utils/date";
 
-export default function ReservationCard({ reservation }: any) {
+import type { MyBookingReservation } from "../../types";
+
+export default function ReservationCard({
+  reservation,
+}: {
+  reservation: MyBookingReservation;
+}) {
   return (
     <Card
       key={reservation._id}

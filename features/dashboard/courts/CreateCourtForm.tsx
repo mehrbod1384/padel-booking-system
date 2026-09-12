@@ -1,6 +1,8 @@
 import { useCreateCourt } from "@/features/court/hooks/useCreateCourt";
 import CourtForm from "./CourtForm";
 
+import type { CreateCourtPayload } from "@/features/court/types";
+
 export default function CreateCourtForm({
   isOpen,
   onClose,
@@ -10,7 +12,7 @@ export default function CreateCourtForm({
 }) {
   const { createCourtMutation, isCreating } = useCreateCourt();
 
-  function onSubmit(data: any) {
+  function onSubmit(data: CreateCourtPayload) {
     createCourtMutation(data, {
       onSuccess: () => onClose(),
     });

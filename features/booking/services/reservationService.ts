@@ -95,8 +95,9 @@ export async function createReservation(
     });
 
     return reservation;
-  } catch (err: any) {
-    if (err?.code === 11000) throw new AppError("Slot already reserved", 400);
+  } catch (err) {
+    if ((err as { code?: number })?.code === 11000)
+      throw new AppError("Slot already reserved", 400);
 
     throw err;
   }

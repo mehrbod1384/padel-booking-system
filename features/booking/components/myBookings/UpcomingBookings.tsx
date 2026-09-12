@@ -7,7 +7,7 @@ import ReservationCardSkeleton from "./ReservationCardSkeleton";
 export default function UpcomingBookings() {
   const { data, isLoading } = useMyBookings();
 
-  if (isLoading) return <ReservationCardSkeleton />;
+  if (isLoading || !data) return <ReservationCardSkeleton />;
 
   const { upcomingReservations } = data;
 
@@ -33,7 +33,7 @@ export default function UpcomingBookings() {
         </span>
       </div>
       <div className={cn("h-125 overflow-x-auto rounded-lg mt-1 mb-15")}>
-        {upcomingReservations.map((reservation: any) => (
+        {upcomingReservations.map((reservation) => (
           <ReservationCard key={reservation._id} reservation={reservation} />
         ))}
       </div>

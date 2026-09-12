@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 
 import { useForm } from "react-hook-form";
 
+import type {
+  Court,
+  CreateCourtPayload,
+  UpdateCourtPayload,
+} from "@/features/court/types";
+
 export default function CourtForm({
   court,
   isOpen,
@@ -16,18 +22,18 @@ export default function CourtForm({
   isPending,
   onSubmit,
 }: {
-  court?: any;
+  court?: Court;
   isOpen: boolean;
   onClose: () => void;
   isPending: boolean;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: CreateCourtPayload | UpdateCourtPayload) => void;
 }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<CreateCourtPayload>();
 
   return (
     <Dialog

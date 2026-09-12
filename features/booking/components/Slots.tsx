@@ -4,18 +4,20 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SlotSkeleton from "./SlotSkeleton";
 
+import type { Court } from "@/features/court/types";
+
 export default function Slots({
   selectedCourt,
   selectedDate,
   selectedSlot,
   setSelectedSlot,
 }: {
-  selectedCourt: any;
+  selectedCourt: Court | null;
   selectedDate: string;
   selectedSlot: string;
-  setSelectedSlot: any;
+  setSelectedSlot: (slot: string) => void;
 }) {
-  const { slots, isLoading } = useAvailablity(selectedCourt._id, selectedDate);
+  const { slots, isLoading } = useAvailablity(selectedCourt?._id, selectedDate);
 
   return (
     <div className="mt-2">
@@ -30,7 +32,7 @@ export default function Slots({
         {isLoading ? (
           <SlotSkeleton />
         ) : (
-          slots?.map((slot: any) => (
+          slots?.map((slot) => (
             <Button
               key={slot}
               size={"sm"}

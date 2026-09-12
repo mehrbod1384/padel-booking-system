@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 import { AppError } from "@/lib/errors/AppError";
 
 export const GET = routeHandler(async (_req, { user }) => {
+  if (!user) throw new AppError("Unauthorized", 401);
+
   if (user.role !== "ADMIN") throw new AppError("you are not allowed", 401);
 
   const { startOfDay, endOfDay } = getDayRange(new Date().toISOString());

@@ -1,11 +1,13 @@
 import { cn } from "@/lib/utils";
 
+import type { BookingPeriod } from "../../types";
+
 export default function TimeButtons({
   time,
   setTime,
 }: {
-  time: string;
-  setTime: any;
+  time: BookingPeriod;
+  setTime: (value: BookingPeriod) => void;
 }) {
   return (
     <div className="mx-auto flex items-center justify-between gap-3 p-1.5 max-w-90 rounded-lg border border-zinc-800 bg-zinc-800/50">

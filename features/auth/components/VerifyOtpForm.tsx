@@ -10,12 +10,14 @@ import { useEffect, useState } from "react";
 import { useSendOtp } from "../hooks/useSendOtp";
 import { cn } from "@/lib/utils";
 
+import type { AuthStep } from "../types";
+
 export default function VerifyOtpForm({
   phone,
   setStep,
 }: {
   phone: string;
-  setStep: any;
+  setStep: (step: AuthStep) => void;
 }) {
   const [code, setCode] = useState("");
   const [errors, setErrors] = useState({ code: "" });

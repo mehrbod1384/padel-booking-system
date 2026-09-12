@@ -3,7 +3,13 @@ import { formatPrice } from "@/features/booking/utils/helper";
 import { formatDate } from "@/utils/date";
 import { CalendarDays, Clock } from "lucide-react";
 
-export default function ReservationDetailsCard({ reservation }: any) {
+import type { ReservationDetail } from "@/features/booking/types";
+
+export default function ReservationDetailsCard({
+  reservation,
+}: {
+  reservation: ReservationDetail;
+}) {
   return (
     <Card className="max-w-90 mt-4 mx-auto rounded-lg bg-zinc-800/50 p-4 border border-zinc-700/50">
       <div className="flex items-center gap-2">

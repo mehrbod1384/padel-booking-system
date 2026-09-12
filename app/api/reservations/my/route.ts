@@ -1,8 +1,11 @@
 import { routeHandler } from "@/lib/routeHandler";
 import { Reservation } from "@/models/Reservation";
+import { AppError } from "@/lib/errors/AppError";
 
 export const GET = routeHandler(
   async (_req, { user }) => {
+    if (!user) throw new AppError("Unauthorized", 401);
+
     const reservations = await Reservation.find({
       user: user._id,
       status: "CONFIRMED",

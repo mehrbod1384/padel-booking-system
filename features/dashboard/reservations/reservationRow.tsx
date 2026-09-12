@@ -2,7 +2,13 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/utils/date";
 
-export default function ReservationRow({ reservation }: any) {
+import type { AdminReservation } from "@/features/booking/types";
+
+export default function ReservationRow({
+  reservation,
+}: {
+  reservation: AdminReservation;
+}) {
   return (
     <TableRow>
       <TableCell>{reservation.user.phone}</TableCell>

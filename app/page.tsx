@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { useBookReservation } from "@/features/booking/hooks/useBookReservation";
 
+import type { Court } from "@/features/court/types";
+
 import { Card } from "@/components/ui/card";
 import CourtInfo from "@/features/booking/components/CourtInfo";
 import DateSelector from "@/features/booking/components/DateSelector";
@@ -14,13 +16,15 @@ import ProtectedRoute from "@/components/layout/ProtectedRoute";
 import ButtonNav from "@/components/ui/ButtonNav";
 
 export default function Home() {
-  const [selectedCourt, setSelectedCourt] = useState("");
+  const [selectedCourt, setSelectedCourt] = useState<Court | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
 
   const { bookReservationMutation, isBooking } = useBookReservation();
 
   function book() {
+    if (!selectedCourt || !selectedDate || !selectedSlot) return;
+
     bookReservationMutation(
       {
         courtId: selectedCourt._id,
@@ -29,7 +33,7 @@ export default function Home() {
       },
       {
         onSuccess: () => {
-          setSelectedCourt("");
+          setSelectedCourt(null);
           setSelectedDate("");
           setSelectedSlot("");
         },

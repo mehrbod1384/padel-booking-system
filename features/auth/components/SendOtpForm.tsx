@@ -6,19 +6,25 @@ import { useForm } from "react-hook-form";
 import { useSendOtp } from "../hooks/useSendOtp";
 import { ClipLoader } from "react-spinners";
 
-export default function SendOtpForm({ setPhone, setStep }: any) {
+import type { AuthStep, SendOtpPayload } from "../types";
+
+export default function SendOtpForm({
+  setPhone,
+  setStep,
+}: {
+  setPhone: (phone: string) => void;
+  setStep: (step: AuthStep) => void;
+}) {
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<SendOtpPayload>();
 
   const { sendOtpMutation, isSending } = useSendOtp();
 
-  function onSubmit(data: any) {
-    // console.log(data);
-
+  function onSubmit(data: SendOtpPayload) {
     sendOtpMutation(data, {
       onSuccess: () => {
         setPhone(data.phone);
@@ -53,7 +59,7 @@ export default function SendOtpForm({ setPhone, setStep }: any) {
         <div className="flex items-center gap-2 mt-2">
           <ShieldCheck className="text-lime-300" />
           <p className="text-xs text-zinc-400 w-40">
-            We'll send you a 6-digit code to verify your number
+            We&apos;ll send you a 6-digit code to verify your number
           </p>
         </div>
 

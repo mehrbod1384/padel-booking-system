@@ -1,5 +1,7 @@
 import { Court } from "@/models/Court";
 
+import type { UpdateCourtBody } from "../types";
+
 export async function getAllCourt() {
   return await Court.find();
 }
@@ -15,7 +17,7 @@ export async function createCourt(name: string, price: number) {
 
 export async function updateCourt(
   courtId: string,
-  payload: { name: string; price: number; isActive: boolean },
+  payload: UpdateCourtBody,
 ) {
   return await Court.findByIdAndUpdate(courtId, payload, { new: true });
 }

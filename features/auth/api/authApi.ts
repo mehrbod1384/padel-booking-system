@@ -1,24 +1,30 @@
 import { axiosInstance } from "@/lib/axiosInstance";
 
-export async function getProfile() {
+import type {
+  SendOtpPayload,
+  User,
+  VerifyOtpPayload,
+} from "../types";
+
+export async function getProfile(): Promise<User | null> {
   const res = await axiosInstance.get("/auth/me");
 
   return res.data.data;
 }
 
-export async function sendOtp(payload: { phone: string }) {
+export async function sendOtp(payload: SendOtpPayload): Promise<string> {
   const res = await axiosInstance.post("/auth/send-otp", payload);
 
   return res.data.data;
 }
 
-export async function verifyOtp(payload: { phone: string; code: string }) {
+export async function verifyOtp(payload: VerifyOtpPayload): Promise<User> {
   const res = await axiosInstance.post("/auth/verify-otp", payload);
 
   return res.data.data;
 }
 
-export async function logout() {
+export async function logout(): Promise<{ success: boolean }> {
   const res = await axiosInstance.post("/auth/logout");
 
   return res.data;

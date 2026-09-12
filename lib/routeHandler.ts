@@ -4,11 +4,16 @@ import { connectDB } from "./db";
 import { requireUser } from "./auth";
 import { handleApiError } from "./errors/handleApiError";
 import { AppError } from "./errors/AppError";
+import { logger } from "./logger";
+
+type RouteUser = Awaited<ReturnType<typeof requireUser>>;
+
+type RouteParams = Promise<{ [key: string]: string | string[] }>;
 
 type HandlerContext = {
-  user?: any;
+  user?: RouteUser;
   body?: unknown;
-  params?: any;
+  params?: RouteParams;
 };
 
 type RouteOptions = {
@@ -25,7 +30,7 @@ export function routeHandler(
 ) {
   return async function (
     req: Request,
-    ctx?: { params?: any },
+    ctx?: { params?: RouteParams },
   ): Promise<Response> {
     try {
       await connectDB();
@@ -46,7 +51,7 @@ export function routeHandler(
         body = parsed.data;
       }
 
-      let user: any;
+      let user: RouteUser | undefined;
 
       if (options.auth) {
         user = await requireUser();
@@ -58,7 +63,8 @@ export function routeHandler(
         params: ctx?.params,
       })) as Response;
     } catch (err) {
-      console.log(err.message);
+      logger.error("Route handler failed", err);
+
       return handleApiError(err);
     }
   };

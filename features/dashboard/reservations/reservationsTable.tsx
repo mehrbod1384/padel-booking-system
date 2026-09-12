@@ -32,7 +32,7 @@ export default function ReservationsTable() {
           </TableHeader>
 
           <TableBody>
-            {reservations?.map((reservation: any) => (
+            {reservations?.map((reservation) => (
               <ReservationRow key={reservation._id} reservation={reservation} />
             ))}
           </TableBody>

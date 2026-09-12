@@ -8,7 +8,9 @@ import { useState } from "react";
 import EditCourtForm from "./EditCourtForm";
 import { useDeleteCourt } from "@/features/court/hooks/useDeleteCourt";
 
-export default function CourtRow({ court }: any) {
+import type { Court } from "@/features/court/types";
+
+export default function CourtRow({ court }: { court: Court }) {
   const [toEdit, setToEdit] = useState<boolean>(false);
   const { deleteCourtMutation, isDeleting } = useDeleteCourt();
 

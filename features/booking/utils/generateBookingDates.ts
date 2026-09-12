@@ -1,4 +1,6 @@
-export function generateBookingDates() {
+import type { BookingDate } from "../types";
+
+export function generateBookingDates(): BookingDate[] {
   const dates = [];
 
   for (let i = 1; i <= 14; i++) {

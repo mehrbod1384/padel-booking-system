@@ -5,11 +5,13 @@ import {
 import { routeHandler } from "@/lib/routeHandler";
 import { updateCourtSchema } from "@/lib/validation";
 
+import type { UpdateCourtBody } from "@/features/court/types";
+
 export const PATCH = routeHandler(
   async (_req, { body, params }) => {
-    const { id } = await params;
+    const { id } = (await params) as { id: string };
 
-    const court = await updateCourt(id, body as any);
+    const court = await updateCourt(id, body as UpdateCourtBody);
 
     return Response.json({
       success: true,
@@ -20,7 +22,7 @@ export const PATCH = routeHandler(
 );
 
 export const DELETE = routeHandler(async (_req, { params }) => {
-  const { id } = await params;
+  const { id } = (await params) as { id: string };
 
   await deleteCourt(id);
 

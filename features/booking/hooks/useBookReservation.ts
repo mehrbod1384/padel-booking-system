@@ -4,14 +4,19 @@ import { useMutation } from "@tanstack/react-query";
 import { bookReservation } from "../api/bookingApi";
 import { axiosInstance } from "@/lib/axiosInstance";
 
+import type { CreatePaymentResponse } from "@/features/payment/types";
+
 export function useBookReservation() {
   const { mutate: bookReservationMutation, isPending: isBooking } = useMutation(
     {
       mutationFn: bookReservation,
       onSuccess: async (data) => {
-        const res = await axiosInstance.post("/payments", {
-          reservationId: data._id,
-        });
+        const res = await axiosInstance.post<CreatePaymentResponse>(
+          "/payments",
+          {
+            reservationId: data._id,
+          },
+        );
 
         window.location.href = res.data.paymentUrl;
       },
