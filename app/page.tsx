@@ -45,7 +45,7 @@ export default function Home() {
         <div className="-translate-y-22">
           <CourtInfo
             selectedCourt={selectedCourt}
-            setSelectedCourt={(court: string) => {
+            setSelectedCourt={(court) => {
               setSelectedCourt(court);
               setSelectedSlot("");
             }}

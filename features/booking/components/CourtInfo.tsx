@@ -9,7 +9,7 @@ export default function CourtInfo({
   setSelectedCourt,
 }: {
   selectedCourt: string;
-  setSelectedCourt: any;
+  setSelectedCourt: (court: any) => void;
 }) {
   const { courts, isLoading } = useCourt();
 
