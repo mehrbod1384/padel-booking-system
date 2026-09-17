@@ -79,7 +79,7 @@ export default function BookingSummary({
         <Button
           size={"lg"}
           disabled={isBooking}
-          className="text-lg py-6 w-50 flex items-center justify-between"
+          className="text-lg py-6 w-50 flex items-center justify-between border border-zinc-700/60 bg-zinc-900 text-lime-300 hover:bg-zinc-800"
           onClick={onBook}
         >
           <span></span>

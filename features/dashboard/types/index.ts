@@ -7,5 +7,5 @@ export interface DashboardTodayData {
 export interface DashboardStats {
   totalReservation: number;
   confirmedReservation: number;
-  todayData: DashboardTodayData[];
+  todayData: DashboardTodayData;
 }

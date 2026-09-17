@@ -1,3 +1,4 @@
+import EmptyState from "@/components/ui/EmptyState";
 import { CalendarDays } from "lucide-react";
 import ReservationCard from "./ReservationCard";
 import { cn } from "@/lib/utils";
@@ -13,11 +14,12 @@ export default function UpcomingBookings() {
 
   if (!upcomingReservations?.length)
     return (
-      <div className="flex items-center justify-center mx-auto max-w-90 h-80 mt-4 bg-zinc-800/50 rounded-lg">
-        <p className="font-bold text-white text-xl">
-          There is no upcomig booking
-        </p>
-      </div>
+      <EmptyState
+        className="mx-auto mt-4 h-80 max-w-90"
+        icon={<CalendarDays size={22} />}
+        title="No upcoming bookings"
+        description="Book a court and your reservation will show up here."
+      />
     );
 
   return (

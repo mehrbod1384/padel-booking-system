@@ -1,3 +1,4 @@
+import EmptyState from "@/components/ui/EmptyState";
 import { useMyBookings } from "../../hooks/useMyBookings";
 import ReservationCard from "./ReservationCard";
 import { History } from "lucide-react";
@@ -12,11 +13,12 @@ export default function PastReservations() {
 
   if (!pastReservations?.length)
     return (
-      <div className="flex items-center justify-center mx-auto max-w-90 h-80 mt-4 bg-zinc-800/50 rounded-lg">
-        <p className="font-bold text-white text-xl">
-          There is no past reservation
-        </p>
-      </div>
+      <EmptyState
+        className="mx-auto mt-4 h-80 max-w-90"
+        icon={<History size={22} />}
+        title="No past reservations"
+        description="Your booking history will appear here after your reservations are played."
+      />
     );
 
   return (

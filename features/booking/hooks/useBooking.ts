@@ -11,7 +11,7 @@ export function useBooking() {
     error,
   } = useQuery({
     queryFn: getConfirmedReservation,
-    queryKey: queryKeys.reservations,
+    queryKey: queryKeys.adminReservations,
   });
 
   return { reservations, isLoading, error };

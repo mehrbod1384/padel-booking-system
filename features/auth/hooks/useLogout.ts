@@ -12,7 +12,7 @@ export function useLogout() {
       router.push("/login");
       toast.removeAll();
     },
-    onError: () => toast.error("Somthing went please try again"),
+    onError: () => toast.error("Could not sign you out. Please try again."),
   });
 
   return { logoutMutation, isLoggingout };

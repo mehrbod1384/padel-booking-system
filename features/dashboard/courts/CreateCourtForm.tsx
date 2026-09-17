@@ -1,4 +1,8 @@
+import toast from "react-hot-toast";
+
 import { useCreateCourt } from "@/features/court/hooks/useCreateCourt";
+import { getErrorMessage } from "@/lib/errors/getErrorMessage";
+
 import CourtForm from "./CourtForm";
 
 import type { CreateCourtPayload } from "@/features/court/types";
@@ -14,7 +18,12 @@ export default function CreateCourtForm({
 
   function onSubmit(data: CreateCourtPayload) {
     createCourtMutation(data, {
-      onSuccess: () => onClose(),
+      onSuccess: (court) => {
+        toast.success(`"${court.name}" created`);
+        onClose();
+      },
+      onError: (error) =>
+        toast.error(getErrorMessage(error, "Could not create court")),
     });
   }
 

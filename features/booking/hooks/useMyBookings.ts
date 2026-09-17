@@ -7,7 +7,7 @@ import { queryKeys } from "@/lib/queryKeys";
 export function useMyBookings() {
   const { data, isLoading, error } = useQuery({
     queryFn: getMyBookings,
-    queryKey: queryKeys.reservations,
+    queryKey: queryKeys.myBookings,
   });
 
   return { data, isLoading, error };

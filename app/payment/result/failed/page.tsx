@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import PageHero from "@/components/layout/PageHero";
 import { useRouter } from "next/navigation";
 
 function Page() {
@@ -17,41 +18,33 @@ function Page() {
 
   return (
     <div className="container mx-auto max-w-110">
-      <div className="relative overflow-hidden">
-        <img
-          src="/padel-racket.png"
-          alt="Court"
-          className="h-80 w-full object-cover"
-        />
-
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="absolute left-8 top-20 z-10">
-          <div className="p-1.5 rounded-full bg-red-950 w-fit mb-4">
-            <div className="p-1 rounded-full bg- w-fit border border-red-700">
+      <PageHero
+        image="/padel-racket.png"
+        imageAlt="Padel court"
+        eyebrow="Payment failed"
+        eyebrowClassName="text-red-500"
+        titleLead="Your payment was"
+        titleAccent="not complete"
+        titleSize="sm"
+        descriptionClassName="my-3"
+        contentClassName="top-20"
+        statusIcon={
+          <div className="mb-4 w-fit rounded-full bg-red-950 p-1.5">
+            <div className="w-fit rounded-full border border-red-700 p-1">
               <X
                 size={44}
-                className="text-red-500 bg-black p-1 rounded-full border border-red-500"
+                className="rounded-full border border-red-500 bg-black p-1 text-red-500"
               />
             </div>
           </div>
-
-          <p className="text-red-500 text-sm font-medium">Payment Failed</p>
-
-          <h1 className="mt-2 text-3xl font-bold leading-10 text-white">
-            Your payment was
-            <br />
-            <span className="text-lime-300">not complete</span>
-          </h1>
-
-          <div className="text-sm my-3 text-zinc-400">
-            <p>No amount has been charged.</p>
-            <p>You can try again anytime.</p>
-          </div>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-linear-to-b from-transparent via-black/50 to-zinc-950" />
-      </div>
+        }
+        description={
+          <>
+            <span className="block">No amount has been charged.</span>
+            <span className="block">You can try again anytime.</span>
+          </>
+        }
+      />
 
       <Card className="max-w-90 mt-4 mx-auto rounded-lg bg-zinc-800/50 p-4 border border-red-700/50">
         <div className="flex gap-2">

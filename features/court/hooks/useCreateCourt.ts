@@ -10,9 +10,6 @@ export function useCreateCourt() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.courts });
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
 
   return { createCourtMutation, isCreating };

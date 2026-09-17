@@ -11,7 +11,7 @@ export function usePayment(paymentId: string) {
     error,
   } = useQuery({
     queryFn: () => getPayment(paymentId),
-    queryKey: queryKeys.payment,
+    queryKey: queryKeys.payment(paymentId),
     enabled: !!paymentId,
   });
 

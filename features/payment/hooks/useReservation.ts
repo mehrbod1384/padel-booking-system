@@ -9,7 +9,7 @@ export function useReservation(reservationId?: string) {
     error,
   } = useQuery({
     queryFn: () => getReservationDetails(reservationId ?? ""),
-    queryKey: queryKeys.reservations,
+    queryKey: queryKeys.reservation(reservationId ?? ""),
     enabled: !!reservationId,
   });
 

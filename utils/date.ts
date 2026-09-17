@@ -15,3 +15,12 @@ export function formatDate(date: string | Date) {
 
   return format(new Date(date), "MMM dd, yyyy");
 }
+
+export function toDayKey(date: string | Date) {
+  const value = new Date(date);
+
+  const month = `${value.getMonth() + 1}`.padStart(2, "0");
+  const day = `${value.getDate()}`.padStart(2, "0");
+
+  return `${value.getFullYear()}-${month}-${day}`;
+}

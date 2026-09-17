@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import PageHero from "@/components/layout/PageHero";
 import BackButton from "./BackButton";
 import RefIdCard from "./RefIdCard";
 import ReservationDetailsCard from "./ReservationDetailsCard";
@@ -29,38 +30,24 @@ export default function PaymentResultClient({
 
   return (
     <div className="container mx-auto max-w-110">
-      <div className="relative overflow-hidden">
-        <img
-          src="/padel-racket.png"
-          alt="Court"
-          className="h-80 w-full object-cover"
-        />
-
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="absolute left-8 top-20 z-10">
-          <div className="p-1.5 rounded-full bg-lime-950 w-fit mb-4">
-            <div className="p-1 rounded-full bg- w-fit border border-lime-700">
+      <PageHero
+        image="/padel-racket.png"
+        imageAlt="Padel court"
+        eyebrow="Payment successful"
+        titleLead="Your booking is"
+        titleAccent="confirmed"
+        contentClassName="top-20"
+        statusIcon={
+          <div className="mb-4 w-fit rounded-full bg-lime-950 p-1.5">
+            <div className="w-fit rounded-full border border-lime-700 p-1">
               <Check
                 size={44}
-                className="text-lime-300 bg-black p-1 rounded-full border border-lime-300"
+                className="rounded-full border border-lime-300 bg-black p-1 text-brand"
               />
             </div>
           </div>
-
-          <p className="text-lime-300 text-sm font-medium">
-            Payment Successfull!
-          </p>
-
-          <h1 className="mt-2 text-4xl font-bold leading-none text-white">
-            Your booking is
-            <br />
-            <span className="text-lime-300">confirmed</span>
-          </h1>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-linear-to-b from-transparent via-black/50 to-zinc-950" />
-      </div>
+        }
+      />
 
       <RefIdCard refId={payment.refId} />
 

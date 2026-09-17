@@ -6,7 +6,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useVerifyOtp } from "../hooks/useVerifyOtp";
 import { ClipLoader } from "react-spinners";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSendOtp } from "../hooks/useSendOtp";
 import { cn } from "@/lib/utils";
 
@@ -41,19 +41,23 @@ export default function VerifyOtpForm({
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  const submittedCode = useRef("");
+
   useEffect(() => {
-    console.log("hey");
-    if (code.length === 6) {
-      verifyOtpMutation(
-        { phone, code },
-        {
-          onSuccess: () => {
-            setStep("phone");
-          },
+    // Auto-submit once per code: the effect used to fire again on every edit.
+    if (code.length !== 6 || submittedCode.current === code) return;
+
+    submittedCode.current = code;
+
+    verifyOtpMutation(
+      { phone, code },
+      {
+        onSuccess: () => {
+          setStep("phone");
         },
-      );
-    }
-  }, [code]);
+      },
+    );
+  }, [code, phone, setStep, verifyOtpMutation]);
 
   function resendCode() {
     if (timeLeft > 0) return;
